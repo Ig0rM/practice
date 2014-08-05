@@ -1,13 +1,5 @@
-/* window.onload = function(){
-alert("it works!");
- };
-*/
- $(document).ready(function(){
- 		/*alert("it works");*/
-/*
- 		$(".header").css("min-height", "140px");
- 		$(".header").css("min-width", "140px");
- 		$(".header").css("background-color", "red");*/
+$(document).ready(function(){
+
 
  $.addTemplateFormatter({
     UpperCaseFormatter : function(value, template) {
@@ -57,14 +49,6 @@ $(function() {
     });
   });
 
-/*
-
-function showPrice(data) {
-    alert("Symbol: " + data.symbol + ", Price: " + data.price);
-}
-
-showPrice({symbol: 'IBM', price: 91.42});
-*/
 $("#template-container1").loadTemplate("#template1",
     {
        header: '',
@@ -93,7 +77,7 @@ $("#template-container3").loadTemplate("#template3",
     {
        quote: "<p><b>Lovely Quote:</b> There may be no 'I' in team, but there's a 'ME' if you look hard enough. - David Brent</p>",
        linksLeft: '<p style="float:left"><a href="#">Archive</a> <img src="./images/separator.gif" alt> <a href="#">RSS Feed</a> </br> <a href="#">CSS</a> and <a href="#">XHTML</a> <img src="./images/separator.gif" alt> <a href="#">Accessibility</a></p>',
-       linksRight: '<p style="float:right"><a href="#" style="float:right">Contact Us</a></br>&copy 2011, <a href="#">Internet Jobs</a></p>'
+       linksRight: '<p style="float:right"><a href="#" style="float:right">Contact Us</a></br>&copy 2014, <a href="#">Internet Jobs</a></p>'
     });
 
 
@@ -115,30 +99,5 @@ $('#hmenu p').on('mouseleave', function() {
   $(this).css('border-bottom', '3px solid #A5A1A1');
   $(this).find('a').css('color', 'black');
 });
-/*$('#searchform').on('mouseleave', function(){
-  $('input:submit').click();
-  console.log("222");
-
-} );*/
-/*header: '<div id="author">xxzczxcx</div>',*/
-/*$("#template-container").loadTemplate($("#template2"),
-    {
-        sidebar: '25th May 2013',
-    });
-
-$("#template-container").loadTemplate($("#template3"),
-    {
-        content: 'Authors/JoeBloggs.jpg',
-    });
-
-$("#template-container").loadTemplate($("#template4"),
-    {
-        footer: 'This is the contents of my post'
-    });*/
-/*		$("#author").css("min-height", "140px");
- 		$("#author").css("min-width", "140px");
- 		$("#author").css("background-color", "blue");
-*/
-
 
  });
