@@ -267,6 +267,8 @@ h2, h3, h4, h5, h6 {
 
 #addMenu p {
 
+    font-size: 12pt;
+
     font-weight: bold;
     /*line-height: 0em;*/
     margin-top: 2px;
