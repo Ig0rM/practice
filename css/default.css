@@ -211,9 +211,18 @@ h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+#searchform input.button {
+    color: white;
+    background-color: #818181;
+    border: none;
+}
+
 #search_field {
     height: 15px;
     width: 140px;
+
+    border: 1px solid #eeeeee;
+    background-color: #d8d8d8;
 }
 
 #sidebarmenu {
@@ -328,6 +337,11 @@ h2, h3, h4, h5, h6 {
     font-size: 13pt;
     padding-left: 20px;
     padding-bottom: 4px;
+}
+
+#main #content #articles #articlePreview a:hover {
+    background-image: url(../images/h2bghover.gif);
+    color: red;
 }
 
 #main #content #articles #articlePreview #date {
