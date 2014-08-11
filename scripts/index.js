@@ -21,7 +21,9 @@ const NEXT_PAGE = '<button>Next</button>'; //next page button
 //info block at the sidebar
 const INFO = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>';
 
+const ADD_FORM = 'Add new article: </br><form action="#" id="addArticle">Title: <input id="articleTitle" name="title" type="text" value=""/> Author: <input id="articleAuthor" name="author" type="text" value=""/></br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="100"  value=""></textarea></br><input type="submit" name="submitArticle" class="button" value="Add new"/></form>';
 
+/*const ADD_FORM = '';*/
 /*=====================FOOTER*/
 const QUOTE = "<p><b>Lovely Quote:</b> There may be no 'I' in team, but there's a 'ME' if you look hard enough. - David Brent</p>"; //quote at the footer
 //left side links in the footer
@@ -71,7 +73,8 @@ $("#template-container2").loadTemplate("#template2",
        prevPage: PREV_PAGE,
        pagenum: PAGE_NUM,
        nextPage: NEXT_PAGE,
-       info: INFO
+       info: INFO,
+       addForm: ADD_FORM
     });
 
 $("#template-container3").loadTemplate("#template3",

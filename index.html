@@ -9,11 +9,11 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
         <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="vendor/jquery-loadTemplate/jquery.loadTemplate-1.4.4.min.js"></script>
-        <script src="vendor/jquery-ui-1.11.0/jquery-ui.js"></script>
+        <script src="vendor/jquery.loadTemplate-1.4.4.min.js"></script>
+        <script src="vendor/jquery-ui.js"></script>
        
         <script src="vendor/typeahead.bundle.js"></script>
-        <script data-main="scripts/index" src="scripts/require.js"></script>
+        <script data-main="scripts/index" src="vendor/require.js"></script>
 
     </head>
     <body>
@@ -70,6 +70,9 @@
                                 <div id="prevPage" data-content="prevPage"></div>
                                 <div id="pagenum" data-content="pagenum"></div>
                                 <div id="nextPage" data-content="nextPage"></div>
+                            </div>
+                            <div id="addArticle">
+                                <div id="addForm" data-content="addForm"></div>
                             </div>
                         </div>
                     </div>

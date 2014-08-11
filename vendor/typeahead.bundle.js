@@ -1307,7 +1307,7 @@
             _onSuggestionClick: function onSuggestionClick($e) {
                 this.trigger("suggestionClicked", $($e.currentTarget));
                 /*reedit*/
-                      $('input:submit').click();
+                      $('#searchform input:submit').click();
                 /**/
             },
             _onSuggestionMouseEnter: function onSuggestionMouseEnter($e) {
@@ -1536,7 +1536,7 @@
                     this._select(cursorDatum);
                     $e.preventDefault();
                       /*reedit*/
-                      $('input:submit').click();
+                      $('#searchform input:submit').click();
                 /**/
                 } else if (this.autoselect && topSuggestionDatum) {
                     this._select(topSuggestionDatum);
