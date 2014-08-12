@@ -346,13 +346,8 @@ h2, h3, h4, h5, h6 {
 
 #main #content #articles {
     width: 520px;
-
     float: left;
     margin-top: 18px;
-
-
-    
-
 }
 
 #main #content #articles h1 {
@@ -364,9 +359,7 @@ h2, h3, h4, h5, h6 {
 
 #main #content #articles #articlePreview {
     padding-top: 3px;
-
     font-size: 8pt;
-
     border-bottom: 1px dotted gray;
 }
 

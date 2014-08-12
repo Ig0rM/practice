@@ -130,6 +130,8 @@ $('#search_field').typeahead({
   name: 'states',
   displayKey: 'value',
   source: substringMatcher(states)
+}).on('typeahead:selected', function() {
+  $('#searchform input:submit').click();
 });
 
 require(["helper/headerMenu"], function(headerMenu) {
@@ -139,15 +141,13 @@ require(["helper/headerMenu"], function(headerMenu) {
     //the module value for "helper/util".
 });
 
-/*$('pre').on('click', function(){
-  alert('aaa');
-  $('input:submit').click();
-});*/
+
          
 
-/*$('.tt-cursor').click(function(){
-  alert('aaa');
-  $('input:submit').click();
-});
-         */       
+//$('.tt-cursor').click(function(){
+ // alert('aaa');
+/*  $('#searchform input:submit').click();
+  $('input:submit').click();*/
+//});
+              
  });
