@@ -131,7 +131,14 @@ $('#search_field').typeahead({
   displayKey: 'value',
   source: substringMatcher(states)
 }).on('typeahead:selected', function() {
-  $('#searchform input:submit').click();
+  window.location.hash = "location=" + $('#search_field').val();
+  /*$('#searchform input:submit').click();*/
+});
+
+$("#search_form1").submit(function() {
+  window.location.hash = "location=" + $('#search_field').val();
+ return false; 
+
 });
 
 require(["helper/headerMenu"], function(headerMenu) {
