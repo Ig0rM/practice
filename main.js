@@ -31,6 +31,7 @@ const FOOTER_LINKS_LEFT = '<p style="float:left"><a href="#">Archive</a> <img sr
 //right side links in the footer
 const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:right">Contact Us</a></br>&copy 2014, <a href="#">Internet Jobs</a></p>';
 
+
 $(document).ready(function(){
 
 
@@ -149,7 +150,9 @@ require(["helper/headerMenu"], function(headerMenu) {
 });
 
 
-         
+
+
+ 
 
 //$('.tt-cursor').click(function(){
  // alert('aaa');

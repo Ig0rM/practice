@@ -17,6 +17,7 @@ module.exports = function(grunt) {
                 keepalive: true,
                 middleware: function(connect, options, middlewares) {
                     app.createRoutes(middlewares);
+                    /*app.newRoutes(middlewares);*/
                     return middlewares;
                 }
             } ,
