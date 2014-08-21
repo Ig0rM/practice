@@ -34,8 +34,6 @@ const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:righ
 
 $(document).ready(function(){
 
-
-
  $.addTemplateFormatter({
     UpperCaseFormatter : function(value, template) {
     		console.log("11111");
@@ -68,9 +66,6 @@ $("#template-container2").loadTemplate("#template2",
        featuredPosts: FEATURED_POSTS,
        topNews: TOP_NEWS,
        newPosts: NEW_POSTS,
-       articleName: ARTICLE_NAME,
-       articlePreview: ARTICLE_PREVIEW,
-       date: DATE,
        prevPage: PREV_PAGE,
        pagenum: PAGE_NUM,
        nextPage: NEXT_PAGE,
@@ -133,31 +128,20 @@ $('#search_field').typeahead({
   source: substringMatcher(states)
 }).on('typeahead:selected', function() {
   window.location.hash = "location=" + $('#search_field').val();
-  /*$('#searchform input:submit').click();*/
 });
 
-$("#search_form1").submit(function() {
-  window.location.hash = "location=" + $('#search_field').val();
- return false; 
-
-});
 
 require(["helper/headerMenu"], function(headerMenu) {
-    //This function is called when scripts/helper/util.js is loaded.
-    //If util.js calls define(), then this function is not fired until
-    //util's dependencies have loaded, and the util argument will hold
-    //the module value for "helper/util".
+
 });
 
 
+//adds new article using form
+$('#addArticle').submit(function() {
+  $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#articleTitle').val() + "&author=" + $('#articleAuthor').val() +"&text=" + $('#articleText').val(), type:'POST',success:function(result){
+    console.log(result);
+  }});
+});
 
-
- 
-
-//$('.tt-cursor').click(function(){
- // alert('aaa');
-/*  $('#searchform input:submit').click();
-  $('input:submit').click();*/
-//});
               
- });
+});

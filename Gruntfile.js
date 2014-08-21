@@ -1,4 +1,5 @@
-var app = require('./backend/app.js');
+
+var routes = require('./backend/routes.js');
 
 module.exports = function(grunt) {
     // plugins
@@ -16,7 +17,7 @@ module.exports = function(grunt) {
                 port: 9000,
                 keepalive: true,
                 middleware: function(connect, options, middlewares) {
-                    app.createRoutes(middlewares);
+                    routes.createRoutes(middlewares);
                     /*app.newRoutes(middlewares);*/
                     return middlewares;
                 }

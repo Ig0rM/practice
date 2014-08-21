@@ -1,4 +1,6 @@
-for (var i = 0; i <= 1; i++) {
+var startingPage = 1;
+
+for (var i = 0; i <= 2; i++) {
   $("#pagination").before($("#articlePreview").clone());
 }
 
