@@ -1,4 +1,5 @@
 var posts = require('./controllers/posts.js');
+var quote = require('./controllers/quote.js');
 
 var routes = [
   {
@@ -10,6 +11,11 @@ var routes = [
     url:  '/api/posts',
     method: 'POST',
     callback:  posts.post
+  },
+  {
+    url:  '/quote',
+    method: 'GET',
+    callback:  quote.get
   }
 ];
 
@@ -18,28 +24,12 @@ exports.createRoutes = function(middlewares) {
 
     routes.forEach(function(route){
       if ( (route.url == req._parsedUrl.pathname) && (route.method == req.method) ) {
-        //connection.bd(function(err, bd){
-         // if (!err){
-            
-           route.callback(req, res);
-          // }else{
-         //  res.end();
-        //  }    
-       // });
-       
+        route.callback(req, res);
       }else{
-        //res.end();
-       // return next();
+
       }
     });
 
     return next();
-    // for(var i = 0; i < routes.length; i++){
-
-     /* console.log(req._parsedUrl);
-      req.params = req._parsedUrl.query*/
-
-      
-    
   });
 };

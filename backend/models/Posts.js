@@ -1,4 +1,5 @@
 var connection = require('../connection.js');
+require("date-format-lite")
 
 var url = require('url');
 
@@ -13,12 +14,13 @@ exports.list = function(req, cb){
 
 exports.create = function(req, cb){
 		var bd = connection.bd();
-
+		var date = new Date();
+ 
   	bd.insert('articles', {
 	    title: url.parse(req._parsedUrl.path, true).query.title,
 	    content: url.parse(req._parsedUrl.path, true).query.text,
 	    author: url.parse(req._parsedUrl.path, true).query.author,
-	    date: '2014-08-18'
+	    date: date.format("D'th' MMM, YYYY")
   	}, function(err, results) {
     	console.log(results);
 			cb(err, results);

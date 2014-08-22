@@ -1,4 +1,3 @@
-
 var routes = require('./backend/routes.js');
 
 module.exports = function(grunt) {
@@ -10,7 +9,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-
         connect: {
             server: {
               options: {
@@ -21,7 +19,7 @@ module.exports = function(grunt) {
                     /*app.newRoutes(middlewares);*/
                     return middlewares;
                 }
-            } ,
+            },
         },
     },
         concat: {

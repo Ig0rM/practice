@@ -34,114 +34,111 @@ const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:righ
 
 $(document).ready(function(){
 
- $.addTemplateFormatter({
-    UpperCaseFormatter : function(value, template) {
-    		console.log("11111");
-            return value.toUpperCase();
-        },
-    LowerCaseFormatter : function(value, template) {
-            return value.toLowerCase();
-        },
-    SameCaseFormatter : function(value, template) {
-            if(template == "upper") {
-                return value.toUpperCase();
-            } else {
-                return value.toLowerCase();
-            }
+  $.addTemplateFormatter({
+      UpperCaseFormatter : function(value, template) {
+      		console.log("11111");
+              return value.toUpperCase();
+          },
+      LowerCaseFormatter : function(value, template) {
+              return value.toLowerCase();
+          },
+      SameCaseFormatter : function(value, template) {
+              if(template == "upper") {
+                  return value.toUpperCase();
+              } else {
+                  return value.toLowerCase();
+              }
+          }
+  	});
+
+
+  $("#template-container1").loadTemplate("#template1",
+      {
+         logotype: LOGOTYPE,
+         slogan: SLOGAN,
+         hmenu: HEADER_MENU,
+         login: LOGIN_TEXT
+      });
+
+  $("#template-container2").loadTemplate("#template2",
+      {
+         searchform: SEARCH_FORM,
+         featuredPosts: FEATURED_POSTS,
+         topNews: TOP_NEWS,
+         newPosts: NEW_POSTS,
+         prevPage: PREV_PAGE,
+         pagenum: PAGE_NUM,
+         nextPage: NEXT_PAGE,
+         info: INFO,
+         addForm: ADD_FORM
+      });
+
+  $("#template-container3").loadTemplate("#template3",
+      {
+         quote: QUOTE,
+         linksLeft: FOOTER_LINKS_LEFT,
+         linksRight: FOOTER_LINKS_RIGHT
+      });
+
+
+
+  var substringMatcher = function(strs) {
+    return function findMatches(q, cb) {
+      var matches, substrRegex;
+   
+      // an array that will be populated with substring matches
+      matches = [];
+   
+      // regex used to determine if a string contains the substring `q`
+      substrRegex = new RegExp(q, 'i');
+   
+      // iterate through the pool of strings and for any string that
+      // contains the substring `q`, add it to the `matches` array
+      $.each(strs, function(i, str) {
+        if (substrRegex.test(str)) {
+          // the typeahead jQuery plugin expects suggestions to a
+          // JavaScript object, refer to typeahead docs for more info
+          matches.push({ value: str });
         }
-	});
-
-
-$("#template-container1").loadTemplate("#template1",
-    {
-       logotype: LOGOTYPE,
-       slogan: SLOGAN,
-       hmenu: HEADER_MENU,
-       login: LOGIN_TEXT
-    });
-
-$("#template-container2").loadTemplate("#template2",
-    {
-       searchform: SEARCH_FORM,
-       featuredPosts: FEATURED_POSTS,
-       topNews: TOP_NEWS,
-       newPosts: NEW_POSTS,
-       prevPage: PREV_PAGE,
-       pagenum: PAGE_NUM,
-       nextPage: NEXT_PAGE,
-       info: INFO,
-       addForm: ADD_FORM
-    });
-
-$("#template-container3").loadTemplate("#template3",
-    {
-       quote: QUOTE,
-       linksLeft: FOOTER_LINKS_LEFT,
-       linksRight: FOOTER_LINKS_RIGHT
-    });
-
-
-
-var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substrRegex;
- 
-    // an array that will be populated with substring matches
-    matches = [];
- 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
- 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        // the typeahead jQuery plugin expects suggestions to a
-        // JavaScript object, refer to typeahead docs for more info
-        matches.push({ value: str });
-      }
-    });
- 
-    cb(matches);
+      });
+   
+      cb(matches);
+    };
   };
-};
- 
-var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
- 
-$('#search_field').typeahead({
-  hint: false,
-  highlight: false,
-  minLength: 1
-},
-{
-  name: 'states',
-  displayKey: 'value',
-  source: substringMatcher(states)
-}).on('typeahead:selected', function() {
-  window.location.hash = "location=" + $('#search_field').val();
-});
+   
+  var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+    'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+    'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+    'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+  ];
+   
+  $('#search_field').typeahead({
+    hint: false,
+    highlight: false,
+    minLength: 1
+  },
+  {
+    name: 'states',
+    displayKey: 'value',
+    source: substringMatcher(states)
+  }).on('typeahead:selected', function() {
+    window.location.hash = "location=" + $('#search_field').val();
+  });
 
 
-require(["helper/headerMenu"], function(headerMenu) {
+  require(["helper/headerMenu"], function(headerMenu) {
 
-});
+  });
 
-
-//adds new article using form
-$('#addArticle').submit(function() {
-  $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#articleTitle').val() + "&author=" + $('#articleAuthor').val() +"&text=" + $('#articleText').val(), type:'POST',success:function(result){
-    console.log(result);
-  }});
-});
-
-              
+  //adds new article using form
+  $('#addArticle').submit(function() {
+    $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#articleTitle').val() + "&author=" + $('#articleAuthor').val() +"&text=" + $('#articleText').val(), type:'POST',success:function(result){
+      console.log(result);
+    }});
+  });
 });

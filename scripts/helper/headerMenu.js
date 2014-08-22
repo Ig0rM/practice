@@ -1,43 +1,70 @@
 var startingPage = 0;
 var limit = 3;
-var counter = 1; //number of the list of articles
-
+var counter; //number of the list of articles
+var lastPage = false;
 //adds element article
 var showPosts = function(startingPage, limit){
-	$.ajax({url:"http://localhost:9000/api/posts?limit=" + limit + "&page=" + startingPage, type:'GET', success:function(result){
-	  var article = JSON.parse(result);
+	//to save progress whe page reloads
+			$.ajax({url:"http://localhost:9000/api/posts?limit=" + (limit+1) + "&page=" + startingPage, type:'GET', success:function(result){
+		  var article = JSON.parse(result);
 
-		for (var i = article.length-1; i >= 0; i--) {
-			//inserts article before pagination buttons
-		  $("#pagination").before("<div id='articlePreview'><div id='articleName'><a href='#'>"+ article[i].title +"</a></div><div id='previewText'><p class='previewText'>" + article[i].content + "</p></div><div id='date'><span id='author'>Posted by: <i>" + article[i].author + "</i></span><span id='actualDate'><a href='#'> " + article[i].date + "</a></span><span id='comments'><a href='#'> Comments(7)</a></span><span id='readMore'><a href='#'> Read more</a></span></div>");
-		}
-		$('#pagenum').text("Page " + counter);
-	}});
+		  //if there war 3 las articles, its using to set flag which indicates that nex page will be blank
+		 	if((article.length < (limit+1)) || (article.length == limit) ){
+		 		lastPage = true;
+		 	}else{
+		 		lastPage = false;
+		 	}
+
+		 	var j;
+		 	if(article.length == 4){
+		 		j = 2;
+		 	} else {
+		 		j = 1;
+		 	}
+
+			for (var i = article.length-j; i >= 0; i--) {
+				//inserts article before pagination buttons
+			  $("#pagination").before("<div id='articlePreview'><div id='articleName'><a href='#'>"+ article[i].title +"</a></div><div id='previewText'><p class='previewText'>" + article[i].content + "</p></div><div id='date'><span id='author'>Posted by: <i>" + article[i].author + "</i></span><span id='actualDate'><a href='#'> " + article[i].date + "</a></span><span id='comments'><a href='#'> Comments(7)</a></span><span id='readMore'><a href='#'> Read more</a></span></div>");
+			}
+			$('#pagenum').text("Page " + counter);
+		}});
+	
 };
 
+
+
+if(url('#limit') && url('#page')){
+		limit = parseInt(url('#limit'));
+		startingPage = parseInt(url('#page'));
+		console.log(startingPage);
+		
+	}
+counter = startingPage/limit + 1;
 //show posts when page is loaded
 showPosts(startingPage, limit);
 
-
 //when push prevPage button
 $('#nextPage').on('click', function(){
-	counter++;
-
-	for(var i=0; i < limit; i++){
-		if($('#articlePreview')){
-			$('#articlePreview').remove();
+	if(!lastPage){
+		counter++;
+		
+		for(var i=0; i < limit; i++){
+			if($('#articlePreview')){
+				$('#articlePreview').remove();
+			}
 		}
-	}
 
-	startingPage += limit;
-	showPosts(startingPage, limit);
+		startingPage += limit;
+		window.location.hash = "#limit=" + limit + "&page=" + startingPage;
+		showPosts(startingPage, limit);
+	}
 });
 
 //when push next page button
 $('#prevPage').on('click', function(){
-
 	if (startingPage >= limit){
 		startingPage -= limit;
+		window.location.hash = "#limit=" + limit + "&page=" + startingPage;
 		counter--;
 	}
 
