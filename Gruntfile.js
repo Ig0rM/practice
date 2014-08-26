@@ -16,7 +16,6 @@ module.exports = function(grunt) {
                 keepalive: true,
                 middleware: function(connect, options, middlewares) {
                     routes.createRoutes(middlewares);
-                    /*app.newRoutes(middlewares);*/
                     return middlewares;
                 }
             },
@@ -25,14 +24,12 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 src: [
-                    'scripts/*.js'
+                    'frontend/*.js'
                 ],
                 dest: 'main.js',
             }
         }
-
     });
-
 
     // grunt tasks 
     grunt.registerTask('default', ['concat']);

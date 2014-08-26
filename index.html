@@ -12,15 +12,15 @@
         <script src="vendor/jquery.loadTemplate-1.4.4.min.js"></script>
         <script src="vendor/jquery-ui.js"></script>
         <script src="vendor/url.min.js"></script>
-        <script src="vendor/typeahead.bundle.js"></script>
-        <script data-main="scripts/index" src="vendor/require.js"></script>
+        <script src="vendor/typeahead.bundle.min.js"></script>
+        <script data-main="frontend/index" src="vendor/require.js"></script>
 
     </head>
     <body>
 
-       <div id="template-container1">
+       <div id="header-container">
 
-                <script type="text/html" id="template1">
+                <script type="text/html" id="headerTemplate">
                     <div id="header">
                         <div data-content="header" ></div>
                         <div id="logo">
@@ -38,8 +38,8 @@
 
         </div>
 
-        <div id="template-container2">
-            <script type="text/html" id="template2">
+        <div id="content-container">
+            <script type="text/html" id="contentTemplate">
                 <div id="main">
                     <div id="content">
                         <div id="sidebar">
@@ -76,8 +76,8 @@
         </div>
 
 
-          <div id="template-container3">
-                <script type="text/html" id="template3">
+          <div id="footer-container">
+                <script type="text/html" id="footerTemplate">
                     <div id="additional">
                         <div id="quote" data-content="quote"></div>
                     </div>

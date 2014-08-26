@@ -27,10 +27,4 @@ exports.bd = function() {
      bd = _getConnection();
      return bd;
   }
-  /*if (bd){
-    cb(null, bd);
-  }else{
-    bd = _getConnection();
-    cb(null, bd);
-  }*/
 }

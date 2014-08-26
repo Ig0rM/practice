@@ -33,54 +33,50 @@ const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:righ
 
 
 $(document).ready(function(){
-
   $.addTemplateFormatter({
-      UpperCaseFormatter : function(value, template) {
-      		console.log("11111");
-              return value.toUpperCase();
-          },
-      LowerCaseFormatter : function(value, template) {
-              return value.toLowerCase();
-          },
-      SameCaseFormatter : function(value, template) {
-              if(template == "upper") {
-                  return value.toUpperCase();
-              } else {
-                  return value.toLowerCase();
-              }
-          }
-  	});
-
+    UpperCaseFormatter : function(value, template) {
+      console.log("11111");
+      return value.toUpperCase();
+    },
+    LowerCaseFormatter : function(value, template) {
+      return value.toLowerCase();
+    },
+    SameCaseFormatter : function(value, template) {
+      if(template == "upper") {
+        return value.toUpperCase();
+      } else {
+        return value.toLowerCase();
+      }
+    }
+  });
 
   $("#header-container").loadTemplate("#headerTemplate",
-      {
-         logotype: LOGOTYPE,
-         slogan: SLOGAN,
-         hmenu: HEADER_MENU,
-         login: LOGIN_TEXT
-      });
+    {
+      logotype: LOGOTYPE,
+      slogan: SLOGAN,
+      hmenu: HEADER_MENU,
+      login: LOGIN_TEXT
+    });
 
   $("#content-container").loadTemplate("#contentTemplate",
-      {
-         searchform: SEARCH_FORM,
-         featuredPosts: FEATURED_POSTS,
-         topNews: TOP_NEWS,
-         newPosts: NEW_POSTS,
-         prevPage: PREV_PAGE,
-         pagenum: PAGE_NUM,
-         nextPage: NEXT_PAGE,
-         info: INFO,
-         addForm: ADD_FORM
-      });
+    {
+      searchform: SEARCH_FORM,
+      featuredPosts: FEATURED_POSTS,
+      topNews: TOP_NEWS,
+      newPosts: NEW_POSTS,
+      prevPage: PREV_PAGE,
+      pagenum: PAGE_NUM,
+      nextPage: NEXT_PAGE,
+      info: INFO,
+      addForm: ADD_FORM
+    });
 
   $("#footer-container").loadTemplate("#footerTemplate",
-      {
-         quote: QUOTE,
-         linksLeft: FOOTER_LINKS_LEFT,
-         linksRight: FOOTER_LINKS_RIGHT
-      });
-
-
+    {
+      quote: QUOTE,
+      linksLeft: FOOTER_LINKS_LEFT,
+      linksRight: FOOTER_LINKS_RIGHT
+    });
 
   var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
