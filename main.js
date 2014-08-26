@@ -141,12 +141,4 @@ $(document).ready(function(){
       console.log(result);
     }});
   });
-
-  //adds new article using form
-/*  $('#addArticle').submit(function() {
-    $.ajax({url:"http://localhost:9000/quote", type:'GET',success:function(result){
-      console.log(result);
-    }});
-  });*/
-
 });

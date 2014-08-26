@@ -1,25 +1,25 @@
 var connection = require('../connection.js');
 require("date-format-lite")
 
-var url = require('url');
 
-exports.list = function(req, cb){
+
+exports.list = function(limit, page, cb){
 	 var bd = connection.bd();
-		bd.query('SELECT * FROM articles LIMIT ' + url.parse(req._parsedUrl.path, true).query.limit + ' OFFSET ' + url.parse(req._parsedUrl.path, true).query.page, function(err, results) {
+		bd.query('SELECT * FROM articles LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
 			console.log(results);
 			cb(err, results);
   	});
 };
 
 
-exports.create = function(req, cb){
+exports.create = function(article, cb){
 		var bd = connection.bd();
 		var date = new Date();
  
   	bd.insert('articles', {
-	    title: url.parse(req._parsedUrl.path, true).query.title,
-	    content: url.parse(req._parsedUrl.path, true).query.text,
-	    author: url.parse(req._parsedUrl.path, true).query.author,
+	    title: article.title,
+	    content: article.text,
+	    author: article.author,
 	    date: date.format("D'th' MMM, YYYY")
   	}, function(err, results) {
     	console.log(results);

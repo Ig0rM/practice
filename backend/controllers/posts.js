@@ -1,7 +1,11 @@
 var Posts = require('../models/Posts.js');
+var DEFAULT_LIMIT = 4;
+var DEFAULT_PAGE = 0;
 
-exports.get = function(req, res){
-	Posts.list(req, function(err, posts){
+exports.index = function(req, res){
+	var limit = req.params.limit || DEFAULT_LIMIT;
+	var page = req.params.page || DEFAULT_PAGE;
+	Posts.list(limit, page, function(err, posts){
 		if (err) {
 			res.statusCode = 500;
 			res.end(JSON.stringify(err));
@@ -12,8 +16,14 @@ exports.get = function(req, res){
 	});
 };
 
-exports.post = function(req, res){
-	Posts.create(req, function(err, posts){
+exports.create = function(req, res){
+	var article = req.params || false;
+	if (!article){
+		return false;
+	}
+
+	Posts.create(article, function(err, posts){
+		res.send(err, posts)
 		if (err) {
 			res.statusCode = 500;
 			res.end(JSON.stringify(err));

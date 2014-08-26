@@ -15,7 +15,7 @@ quotes = [
 	}
 ];
 
-exports.get = function(req, cb){
+exports.index = function(req, cb){
 	index++;
 	cb(null, quotes[index]);
 };
