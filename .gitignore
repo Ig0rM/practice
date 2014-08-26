@@ -1,1 +1,1 @@
-$ cat .gitignore main.js
+$ cat .gitignore main.js /node_modules/
