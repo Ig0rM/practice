@@ -4,7 +4,6 @@ require("date-format-lite")
 exports.list = function(limit, page, cb){
 	var bd = connection.bd();
 	bd.query('SELECT * FROM articles LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
-		console.log(results);
 		cb(err, results);
   });
 };

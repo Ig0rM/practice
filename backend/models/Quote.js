@@ -1,4 +1,4 @@
-var index = 0;
+//var index = 0;
 
 quotes = [
 	{
@@ -15,7 +15,6 @@ quotes = [
 	}
 ];
 
-exports.index = function(req, cb){
-	index++;
-	cb(null, quotes[index]);
+exports.index = function(quote, cb){
+	cb(null, quotes[quote]);
 };

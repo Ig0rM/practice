@@ -25,11 +25,44 @@ const ADD_FORM = 'Add new article: </br><form action="#" id="addArticle">Title: 
 
 /*const ADD_FORM = '';*/
 /*=====================FOOTER*/
-const QUOTE = "<p><b>Lovely Quote:</b> There may be no 'I' in team, but there's a 'ME' if you look hard enough. - David Brent</p>"; //quote at the footer
+const QUOTE = "<p><b>Lovely Quote:</b> <span class='quoteText'>There may be no 'I' in team, but there's a 'ME' if you look hard enough. - David Brent</span></p>"; //quote at the footer
 //left side links in the footer
 const FOOTER_LINKS_LEFT = '<p style="float:left"><a href="#">Archive</a> <img src="./images/separator.gif" alt> <a href="#">RSS Feed</a> </br> <a href="#">CSS</a> and <a href="#">XHTML</a> <img src="./images/separator.gif" alt> <a href="#">Accessibility</a></p>';
 //right side links in the footer
 const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:right">Contact Us</a></br>&copy 2014, <a href="#">Internet Jobs</a></p>';
+
+var quoteNumber = 0;
+var QOUTE_COUNT = 3;
+var oldQuoteNumber = 3;
+
+
+setQuote = function(){
+  if(url('#quote')){
+      quoteNumber = parseInt(url('#quote'));
+    }
+
+    $.ajax({url:"http://localhost:9000/quote?quote=" + quoteNumber, type:'GET', success:function(result){
+      var article = JSON.parse(result);
+      console.log(article);
+      $(".quoteText").text(article.text + " - " + article.author);
+    }});
+
+    oldQuoteNumber = quoteNumber;
+    if(quoteNumber == QOUTE_COUNT-1){
+      quoteNumber = 0;
+    }else{
+      quoteNumber++;
+    }
+
+    if(window.location.hash.search("quote=") == -1){
+      window.location.hash += "&quote=" + oldQuoteNumber;
+    }else{
+      var strQuote = "quote="+oldQuoteNumber;
+      var strQuoteNew = "quote="+quoteNumber;
+      var strHash = window.location.hash.replace('&quote='+oldQuoteNumber,'&quote='+quoteNumber);
+      window.location.hash = strHash;
+    }
+}
 
 
 $(document).ready(function(){
@@ -130,6 +163,10 @@ $(document).ready(function(){
   require(["helper/headerMenu"], function(headerMenu) {
 
   });
+
+  setQuote();
+
+  setInterval(setQuote, 10000);
 
   //adds new article using form
   $('#addArticle').submit(function() {

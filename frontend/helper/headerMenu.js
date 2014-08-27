@@ -28,12 +28,9 @@ var showPosts = function(startingPage, limit){
 	}});
 };
 
-
-
 if(url('#limit') && url('#page')){
 	limit = parseInt(url('#limit'));
 	startingPage = parseInt(url('#page'));
-	console.log(startingPage);
 }
 
 counter = startingPage/limit + 1;

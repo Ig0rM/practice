@@ -457,6 +457,8 @@ h2, h3, h4, h5, h6 {
     margin: 0 auto 15px auto;
     width: 750px;
     background-color: white;
+    overflow: auto;
+    clear: both;
 
 }
 
@@ -464,7 +466,7 @@ h2, h3, h4, h5, h6 {
     padding-left: 10px;
     padding-top: 7px;
     padding-bottom: 7px;
-
+    float: left;
     margin: 0px;
     line-height: 20px;
 }
