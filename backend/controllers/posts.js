@@ -33,3 +33,21 @@ exports.create = function(req, res){
 		}
 	});
 };
+
+exports.destroy = function(req, res){
+	var id = req.params.id || false;
+	if (!id){
+		return false;
+	}
+
+	Posts.destroy(id, function(err, posts){
+		res.send(err, posts)
+		if (err) {
+			res.statusCode = 500;
+			res.end(JSON.stringify(err));
+		} else {
+			res.statusCode = 200;
+			res.end(JSON.stringify(posts));
+		}
+	});
+};

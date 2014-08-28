@@ -22,9 +22,19 @@ var showPosts = function(startingPage, limit){
 		}
 		for (var i = article.length-j; i >= 0; i--) {
 		//inserts article before pagination buttons
-			$("#pagination").before("<div id='articlePreview'><div id='articleName'><a href='#'>"+ article[i].title +"</a></div><div id='previewText'><p class='previewText'>" + article[i].content + "</p></div><div id='date'><span id='author'>Posted by: <i>" + article[i].author + "</i></span><span id='actualDate'><a href='#'> " + article[i].date + "</a></span><span id='comments'><a href='#'> Comments(7)</a></span><span id='readMore'><a href='#'> Read more</a></span></div>");
+			$("#newPosts").after("<div class='articlePreview' id=" + article[i].id + "><span><button class='delButton' id=" + article[i].id + " value=" + article[i].id + ">x</button></span><div id='articleName'><a href='#'>"+ article[i].title +"</a></div><div id='previewText'><p class='previewText'>" + article[i].content + "</p></div><div id='date'><span id='author'>Posted by: <i>" + article[i].author + "</i></span><span id='actualDate'><a href='#'> " + article[i].date + "</a></span><span id='comments'><a href='#'> Comments(7)</a></span><span id='readMore'><a href='#'> Read more</a></span></div>");
 		}
 		$('#pagenum').text("Page " + counter);
+
+		//adds deletion of article preview
+		$('.delButton').each(function(){
+			$(this).on('click', function(){
+		    $.ajax({url:"http://localhost:9000/api/posts?id=" + $(this).val(), type:'DELETE',success:function(result){
+
+		    }});
+		    $('#' + $(this).val()).fadeOut('normal');
+		  });
+		}); 
 	}});
 };
 
@@ -43,8 +53,8 @@ $('#nextPage').on('click', function(){
 		counter++;
 		
 		for(var i=0; i < limit; i++){
-			if($('#articlePreview')){
-				$('#articlePreview').remove();
+			if($('.articlePreview')){
+				$('.articlePreview').remove();
 			}
 		}
 
@@ -63,8 +73,8 @@ $('#prevPage').on('click', function(){
 	}
 
 	for(var i=0; i < limit; i++){
-		if($('#articlePreview')){
-			$('#articlePreview').remove();
+		if($('.articlePreview')){
+			$('.articlePreview').remove();
 		}
 	}
 

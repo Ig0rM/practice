@@ -1,5 +1,3 @@
-//var index = 0;
-
 quotes = [
 	{
 		author: 'David Brent',

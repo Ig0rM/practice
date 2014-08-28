@@ -17,6 +17,11 @@ var routes = [
     url:  '/quote',
     method: 'GET',
     callback:  quote.index
+  },
+  {
+    url:  '/api/posts',
+    method: 'DELETE',
+    callback:  posts.destroy
   }
 ];
 

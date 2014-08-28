@@ -31,58 +31,42 @@ const FOOTER_LINKS_LEFT = '<p style="float:left"><a href="#">Archive</a> <img sr
 //right side links in the footer
 const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:right">Contact Us</a></br>&copy 2014, <a href="#">Internet Jobs</a></p>';
 
-var quoteNumber = 0;
-var QOUTE_COUNT = 3;
-var oldQuoteNumber = 3;
+var quoteNumber = 0; //number of the first quote
+var QOUTE_COUNT = 3; //count of all quotes
+var oldQuoteNumber = 3; //number of the quote going before
 
-
+//chose quote, after refreshing the page chose new quote
 setQuote = function(){
   if(url('#quote')){
       quoteNumber = parseInt(url('#quote'));
-    }
+  }
 
-    $.ajax({url:"http://localhost:9000/quote?quote=" + quoteNumber, type:'GET', success:function(result){
-      var article = JSON.parse(result);
-      console.log(article);
-      $(".quoteText").text(article.text + " - " + article.author);
-    }});
+  //adding quote counter
+  oldQuoteNumber = quoteNumber;
+  if(quoteNumber == QOUTE_COUNT-1){
+    quoteNumber = 0;
+  }else{
+    quoteNumber++;
+  }
 
-    oldQuoteNumber = quoteNumber;
-    if(quoteNumber == QOUTE_COUNT-1){
-      quoteNumber = 0;
-    }else{
-      quoteNumber++;
-    }
+  $.ajax({url:"http://localhost:9000/quote?quote=" + quoteNumber, type:'GET', success:function(result){
+    var article = JSON.parse(result);
+    $(".quoteText").text(article.text + " - " + article.author);
+  }});
 
-    if(window.location.hash.search("quote=") == -1){
-      window.location.hash += "&quote=" + oldQuoteNumber;
-    }else{
-      var strQuote = "quote="+oldQuoteNumber;
-      var strQuoteNew = "quote="+quoteNumber;
-      var strHash = window.location.hash.replace('&quote='+oldQuoteNumber,'&quote='+quoteNumber);
-      window.location.hash = strHash;
-    }
+  
+  if(window.location.hash.search("quote=") == -1){
+    window.location.hash += "&quote=" + quoteNumber;
+  }else{
+    var strQuote = "quote="+oldQuoteNumber;
+    var strQuoteNew = "quote="+quoteNumber;
+    var strHash = window.location.hash.replace('&quote='+oldQuoteNumber,'&quote='+ quoteNumber);
+    window.location.hash = strHash;
+  }
 }
 
 
 $(document).ready(function(){
-  $.addTemplateFormatter({
-    UpperCaseFormatter : function(value, template) {
-      console.log("11111");
-      return value.toUpperCase();
-    },
-    LowerCaseFormatter : function(value, template) {
-      return value.toLowerCase();
-    },
-    SameCaseFormatter : function(value, template) {
-      if(template == "upper") {
-        return value.toUpperCase();
-      } else {
-        return value.toLowerCase();
-      }
-    }
-  });
-
   $("#header-container").loadTemplate("#headerTemplate",
     {
       logotype: LOGOTYPE,
@@ -111,6 +95,7 @@ $(document).ready(function(){
       linksRight: FOOTER_LINKS_RIGHT
     });
 
+  //matches for searchform
   var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
       var matches, substrRegex;
@@ -171,7 +156,9 @@ $(document).ready(function(){
   //adds new article using form
   $('#addArticle').submit(function() {
     $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#articleTitle').val() + "&author=" + $('#articleAuthor').val() +"&text=" + $('#articleText').val(), type:'POST',success:function(result){
-    //  console.log(result);
     }});
   });
+
+  
+  
 });

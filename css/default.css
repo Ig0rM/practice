@@ -339,13 +339,13 @@ h2, h3, h4, h5, h6 {
 }
 
 
-#main #content #articles #articlePreview {
-    padding-top: 3px;
+#main #content #articles .articlePreview {
+    margin-top: -10px;
     font-size: 8pt;
     border-bottom: 1px dotted gray;
 }
 
-#main #content #articles #articlePreview a {
+#main #content #articles .articlePreview a {
     background-image: url(../images/h2bg.gif);
     background-repeat: no-repeat;
     background-position: left center;
@@ -357,16 +357,16 @@ h2, h3, h4, h5, h6 {
     padding-bottom: 4px;
 }
 
-#main #content #articles #articlePreview a:hover {
+#main #content #articles .articlePreview a:hover {
     background-image: url(../images/h2bghover.gif);
     color: red;
 }
 
-#main #content #articles #articlePreview #date {
+#main #content #articles .articlePreview #date {
     color: #A7A1A1;
 }
 
-#main #content #articles #articlePreview #date a{
+#main #content #articles .articlePreview #date a{
     font-size: 8pt;
     background-image: none;
 
@@ -375,11 +375,11 @@ h2, h3, h4, h5, h6 {
     color: #A7A1A1;
 }
 
-#main #content #articles #articlePreview #date #author{
+#main #content #articles .articlePreview #date #author{
 
 }
 
-#main #content #articles #articlePreview #date #readMore{
+#main #content #articles .articlePreview #date #readMore{
     background-image: url(../images/more.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -389,7 +389,7 @@ h2, h3, h4, h5, h6 {
     float: right;
 }
 
-#main #content #articles #articlePreview #date #comments{
+#main #content #articles .articlePreview #date #comments{
     background-image: url(../images/comment.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -399,7 +399,7 @@ h2, h3, h4, h5, h6 {
     float: right;
 }
 
-#main #content #articles #articlePreview #date #actualDate{
+#main #content #articles .articlePreview #date #actualDate{
     background-image: url(../images/timeicon.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -409,6 +409,19 @@ h2, h3, h4, h5, h6 {
     float: right;
 }
 
+.delButton {
+    background-color: red;
+    position: relative;
+    top: 20px;
+    left: 495px;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    padding: 4px;
+    line-height: 4px;
+
+}
 /*
 +++++++++++++++++++++++++++++++++
 +++++++++++pagination++++++++++++

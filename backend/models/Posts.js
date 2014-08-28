@@ -18,7 +18,13 @@ exports.create = function(article, cb){
 	  author: article.author,
 	  date: date.format("D'th' MMM, YYYY")
   }, function(err, results) {
-    console.log(results);
 		cb(err, results);
   });
+};
+
+exports.destroy = function(id, cb){
+	var bd = connection.bd();
+	bd.delete('articles', { id: id }, function(err, affectedRows) {
+    cb(err, affectedRows);
+	});
 };
