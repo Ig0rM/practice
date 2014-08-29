@@ -2,11 +2,13 @@ var startingPage = 0;
 var limit = 3;
 var counter; //number of the list of articles
 var lastPage = false;
+var isEdited = false;
+var article;
 //adds element article
 var showPosts = function(startingPage, limit){
 	//to save progress whe page reloads
 	$.ajax({url:"http://localhost:9000/api/posts?limit=" + (limit+1) + "&page=" + startingPage, type:'GET', success:function(result){
-		var article = JSON.parse(result);
+		article = JSON.parse(result);
 		//if there war 3 las articles, its using to set flag which indicates that nex page will be blank
 		if((article.length < (limit+1)) || (article.length == limit) ){
 		 	lastPage = true;
@@ -22,19 +24,93 @@ var showPosts = function(startingPage, limit){
 		}
 		for (var i = article.length-j; i >= 0; i--) {
 		//inserts article before pagination buttons
-			$("#newPosts").after("<div class='articlePreview' id=" + article[i].id + "><span><button class='delButton' id=" + article[i].id + " value=" + article[i].id + ">x</button></span><div id='articleName'><a href='#'>"+ article[i].title +"</a></div><div id='previewText'><p class='previewText'>" + article[i].content + "</p></div><div id='date'><span id='author'>Posted by: <i>" + article[i].author + "</i></span><span id='actualDate'><a href='#'> " + article[i].date + "</a></span><span id='comments'><a href='#'> Comments(7)</a></span><span id='readMore'><a href='#'> Read more</a></span></div>");
+			$("#newPosts").after("<div class='articlePreview' id=" 
+				+ article[i].id 
+				+ "><span><button class='editButton' id=" 
+				+ article[i].id 
+				+ " value=" 
+				+ article[i].id 
+				+ ">e</button></span><span><button class='delButton' id=" 
+				+ article[i].id 
+				+ " value=" 
+				+ article[i].id 
+				+ ">x</button></span><div class='articleName' id="
+				+ article[i].id 
+				+"><a href='#'>"
+				+ article[i].title 
+				+"</a></div><div calss='previewText' id="
+				+ article[i].id 
+				+"><p class='previewText' id="
+				+ article[i].id 
+				+">" 
+				+ article[i].content 
+				+ "</p></div><div class='date' id="
+				+ article[i].id 
+				+"><span class='author' id="
+				+ article[i].id 
+				+">Posted by: <i>" 
+				+ article[i].author 
+				+ "</i></span><span class='actualDate' id="
+				+ article[i].id 
+				+"><a href='#'> " 
+				+ article[i].date 
+				+ "</a></span><span class='comments' id="
+				+ article[i].id 
+				+"><a href='#'> Comments(7)</a></span><span class='readMore' id="
+				+ article[i].id 
+				+"><a href='#'> Read more</a></span></div>");
 		}
 		$('#pagenum').text("Page " + counter);
 
 		//adds deletion of article preview
 		$('.delButton').each(function(){
 			$(this).on('click', function(){
-		    $.ajax({url:"http://localhost:9000/api/posts?id=" + $(this).val(), type:'DELETE',success:function(result){
+				if(confirm("You want to delete this article?")){
+			    $.ajax({url:"http://localhost:9000/api/posts?id=" + $(this).val(), type:'DELETE',success:function(result){
 
-		    }});
-		    $('#' + $(this).val()).fadeOut('normal');
+			    }});
+			    $('#' + $(this).val()).fadeOut('normal');
+			  }
 		  });
 		}); 
+
+
+		//adds edition of article preview
+		$('.editButton').each(function(){
+			$(this).on('click', function(){
+				if(!isEdited){
+					isEdited = true;
+			//	if(confirm("You want to edit this article?")){
+			    $.ajax({url:"http://localhost:9000/api/posts/show?id=" + $(this).val(), type:'GET',success:function(result){
+			    	article = JSON.parse(result);
+			    	
+			    	//console.log(article.title);
+			    }});
+			    
+			    $('#' + $(this).val()).after(
+			    		'<form action="#" id="editForm">Title: <input id="editTitle" name="title" type="text" value='
+			    		+ $('#' + $(this).val() + '.articleName').text() //article.title 
+			    		+'> </br></br>Text: </br><textarea id="editText" name="text" rows="5" cols="95"  value="">'
+			    		+ $('#' + $(this).val() + '.previewText').text()
+			    		+'</textarea></br></br><div id="editAuthor">Author: <input id="editAuthorName" name="author" type="text" value='
+			    		+ $('#' + $(this).val() + '.author i').text()
+			    		+'></div></br></br><input class="submitEditedArticle" type="submit" name="submitEditedArticle" class="button" value="Confirm"/></form>'
+			    		);
+			    /*$('#' + $(this).val() +'.articlePreview').fadeOut('normal');
+			    $('#editForm').fadeIn(400);*/
+			    $('#editForm').slideDown(400);
+			    var id = $(this).val();
+			    $('#editForm').submit(function() {
+				    $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#editTitle').val() + "&author=" + $('#editAuthorName').val() +"&text=" + $('#editText').val() + "&id=" + id, type:'PUT',success:function(result){
+				    	$('#editForm').remove();
+				    }});
+				    isEdited = false;
+				  });
+				}else{
+					//nothing
+				}  
+		  });
+		});
 	}});
 };
 

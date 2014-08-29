@@ -21,7 +21,7 @@ const NEXT_PAGE = '<button>Next</button>'; //next page button
 //info block at the sidebar
 const INFO = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>';
 
-const ADD_FORM = 'Add new article: </br><form action="#" id="addArticle">Title: <input id="articleTitle" name="title" type="text" value=""/> Author: <input id="articleAuthor" name="author" type="text" value=""/></br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="100"  value=""></textarea></br><input type="submit" name="submitArticle" class="button" value="Add new"/></form>';
+const ADD_FORM = '<button class="addFormButton">+</button><i>Add new article</i></br><form action="#" id="articleForm">Title: <input id="articleTitle" name="title" type="text" value=""/> </br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="95"  value=""></textarea></br></br><div id="articleAuthor">Author: <input name="author" type="text" value=""/></div></br></br><input class="submitArticle" type="submit" name="submitArticle" class="button" value="Add new"/></form>';
 
 /*const ADD_FORM = '';*/
 /*=====================FOOTER*/
@@ -34,6 +34,7 @@ const FOOTER_LINKS_RIGHT = '<p style="float:right"><a href="#" style="float:righ
 var quoteNumber = 0; //number of the first quote
 var QOUTE_COUNT = 3; //count of all quotes
 var oldQuoteNumber = 3; //number of the quote going before
+var formHide = true; //indicates if the form is hide
 
 //chose quote, after refreshing the page chose new quote
 setQuote = function(){
@@ -160,5 +161,16 @@ $(document).ready(function(){
   });
 
   
-  
+  $(".addFormButton").on('click', function(){
+    if(formHide){
+      $("#articleForm").slideDown(400);
+      formHide = false;
+      $(".addFormButton").text("-");
+    }else{
+      $("#articleForm").slideUp(400);
+      formHide = true;
+      $(".addFormButton").text("+");
+    }
+
+  });
 });

@@ -22,6 +22,16 @@ var routes = [
     url:  '/api/posts',
     method: 'DELETE',
     callback:  posts.destroy
+  },
+  {
+    url:  '/api/posts',
+    method: 'PUT',
+    callback:  posts.update
+  },
+  {
+    url:  '/api/posts/show',
+    method: 'GET',
+    callback:  posts.show
   }
 ];
 

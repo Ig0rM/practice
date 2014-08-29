@@ -51,3 +51,37 @@ exports.destroy = function(req, res){
 		}
 	});
 };
+
+exports.update = function(req, res){
+	var article = req.params || false;
+	if (!article){
+		return false;
+	}
+
+	Posts.update(article, function(err, posts){
+		res.send(err, posts)
+		if (err) {
+			res.statusCode = 500;
+			res.end(JSON.stringify(err));
+		} else {
+			res.statusCode = 200;
+			res.end(JSON.stringify(posts));
+		}
+	});
+};
+
+exports.show = function(req, res){
+	var id = req.params.id || false;
+	if (!id){
+		return false;
+	}
+	Posts.show(id, function(err, posts){
+		if (err) {
+			res.statusCode = 500;
+			res.end(JSON.stringify(err));
+		} else {
+			res.statusCode = 200;
+			res.end(JSON.stringify(posts));
+		}
+	});
+};

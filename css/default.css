@@ -362,11 +362,11 @@ h2, h3, h4, h5, h6 {
     color: red;
 }
 
-#main #content #articles .articlePreview #date {
+#main #content #articles .articlePreview .date {
     color: #A7A1A1;
 }
 
-#main #content #articles .articlePreview #date a{
+#main #content #articles .articlePreview .date a{
     font-size: 8pt;
     background-image: none;
 
@@ -375,11 +375,11 @@ h2, h3, h4, h5, h6 {
     color: #A7A1A1;
 }
 
-#main #content #articles .articlePreview #date #author{
+#main #content #articles .articlePreview .date .author{
 
 }
 
-#main #content #articles .articlePreview #date #readMore{
+#main #content #articles .articlePreview .date .readMore{
     background-image: url(../images/more.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -389,7 +389,7 @@ h2, h3, h4, h5, h6 {
     float: right;
 }
 
-#main #content #articles .articlePreview #date #comments{
+#main #content #articles .articlePreview .date .comments{
     background-image: url(../images/comment.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -399,7 +399,7 @@ h2, h3, h4, h5, h6 {
     float: right;
 }
 
-#main #content #articles .articlePreview #date #actualDate{
+#main #content #articles .articlePreview .date .actualDate{
     background-image: url(../images/timeicon.gif);
     background-repeat: no-repeat;
     background-position: left;
@@ -410,17 +410,76 @@ h2, h3, h4, h5, h6 {
 }
 
 .delButton {
-    background-color: red;
+    background-color: #D23A1E;
     position: relative;
     top: 20px;
-    left: 495px;
+    left: 487px;
     border-top-left-radius: 35px;
     border-top-right-radius: 35px;
     border-bottom-right-radius: 35px;
     border-bottom-left-radius: 35px;
-    padding: 4px;
-    line-height: 4px;
+    padding: 3px;
+    line-height: 3px;
 
+}
+
+.editButton {
+    background-color: #818181;;
+    position: relative;
+    top: 20px;
+    left: 486px;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    padding: 3px;
+    line-height: 3px;
+
+}
+.addFormButton {
+    background-color: #4682B4;
+    position: relative;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    bottom: 2px;
+    padding: 3px;
+    line-height: 3px;
+}
+
+#articleForm{
+    color: white;
+    padding: 10px;
+    padding-top: 10px;
+    display: none;
+    background-color: #D23A1E;
+    /*background-color: #818181;*/
+}
+
+#articleTitle{
+
+}
+
+#articleText{
+
+}
+
+#articleAuthor{
+    float: right;
+    padding-right: 2px;
+}
+
+.articleSubmit{
+
+}
+
+#addArticle{
+    padding-bottom: 10px;
+}
+
+#editForm{
+    display: none;
 }
 /*
 +++++++++++++++++++++++++++++++++
