@@ -1,5 +1,6 @@
 var posts = require('./controllers/posts.js');
 var quote = require('./controllers/quote.js');
+
 var url = require('url');
 
 var routes = [
@@ -37,8 +38,13 @@ var routes = [
 
 
 prepareParams = function(req){
-  req.params = url.parse(req._parsedUrl.path, true).query;
-  req.params = req.params || {};
+  if ( (req.method == 'POST') || (req.method == 'DELETE') || (req.method == 'PUT')) {
+      
+  }else{
+    req.params = url.parse(req._parsedUrl.path, true).query;
+    req.params = req.params || {};
+  }
+
 }
 
 exports.createRoutes = function(middlewares) {

@@ -17,12 +17,8 @@ exports.index = function(req, res){
 };
 
 exports.create = function(req, res){
-	var article = req.params || false;
-	if (!article){
-		return false;
-	}
 
-	Posts.create(article, function(err, posts){
+	Posts.create(req, function(err, posts){
 		res.send(err, posts)
 		if (err) {
 			res.statusCode = 500;
@@ -35,12 +31,8 @@ exports.create = function(req, res){
 };
 
 exports.destroy = function(req, res){
-	var id = req.params.id || false;
-	if (!id){
-		return false;
-	}
 
-	Posts.destroy(id, function(err, posts){
+	Posts.destroy(req, function(err, posts){
 		res.send(err, posts)
 		if (err) {
 			res.statusCode = 500;
@@ -53,12 +45,7 @@ exports.destroy = function(req, res){
 };
 
 exports.update = function(req, res){
-	var article = req.params || false;
-	if (!article){
-		return false;
-	}
-
-	Posts.update(article, function(err, posts){
+	Posts.update(req, function(err, posts){
 		res.send(err, posts)
 		if (err) {
 			res.statusCode = 500;

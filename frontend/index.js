@@ -21,7 +21,7 @@ const NEXT_PAGE = '<button>Next</button>'; //next page button
 //info block at the sidebar
 const INFO = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>';
 
-const ADD_FORM = '<button class="addFormButton">+</button><i>Add new article</i></br><form action="#" id="articleForm">Title: <input id="articleTitle" name="title" type="text" value=""/> </br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="95"  value=""></textarea></br></br><div id="articleAuthor">Author: <input name="author" type="text" value=""/></div></br></br><input class="submitArticle" type="submit" name="submitArticle" class="button" value="Add new"/></form>';
+const ADD_FORM = '<button class="addFormButton">+</button><i>Add new article</i></br><form action="#" id="articleForm">Title: <input id="articleTitle" name="title" type="text" value=""/> </br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="95"  value=""></textarea></br></br><div id="articleAuthor">Author: <input name="author" id="author" type="text" value=""/></div></br></br><input class="submitArticle" type="submit" name="submitArticle" class="button" value="Add new"/></form>';
 
 /*const ADD_FORM = '';*/
 /*=====================FOOTER*/
@@ -50,10 +50,17 @@ setQuote = function(){
     quoteNumber++;
   }
 
-  $.ajax({url:"http://localhost:9000/quote?quote=" + quoteNumber, type:'GET', success:function(result){
-    var article = JSON.parse(result);
-    $(".quoteText").text(article.text + " - " + article.author);
-  }});
+  $.ajax({
+    url:"http://localhost:9000/quote", 
+    type:'GET', 
+    data: {
+      quote: quoteNumber
+    },
+    success:function(result){
+      var article = JSON.parse(result);
+      $(".quoteText").text(article.text + " - " + article.author);
+    }
+  });
 
   
   if(window.location.hash.search("quote=") == -1){
@@ -156,8 +163,19 @@ $(document).ready(function(){
 
   //adds new article using form
   $('#addArticle').submit(function() {
-    $.ajax({url:"http://localhost:9000/api/posts?title=" + $('#articleTitle').val() + "&author=" + $('#articleAuthor').val() +"&text=" + $('#articleText').val(), type:'POST',success:function(result){
-    }});
+    var post = {
+      title: $('#articleTitle').val(),
+      author: $('#author').val(),
+      text: $('#articleText').val()
+    };
+
+    console.log($('#articleAuthor').val());
+    $.ajax({
+      url:"http://localhost:9000/api/posts",
+      type:'POST',
+      data: post,
+      success:function(result){}
+    });
   });
 
   

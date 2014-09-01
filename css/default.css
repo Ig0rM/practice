@@ -424,7 +424,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .editButton {
-    background-color: #818181;;
+    background-color: #818181;
     position: relative;
     top: 20px;
     left: 486px;
@@ -478,7 +478,8 @@ h2, h3, h4, h5, h6 {
     padding-bottom: 10px;
 }
 
-#editForm{
+.editForm{
+    background-color: #818181;
     display: none;
 }
 /*
