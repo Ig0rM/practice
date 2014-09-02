@@ -51,7 +51,7 @@ setQuote = function(){
   }
 
   $.ajax({
-    url:"http://localhost:9000/quote", 
+    url:"/quote", 
     type:'GET', 
     data: {
       quote: quoteNumber
@@ -179,7 +179,7 @@ $(function() {
 
     console.log($('#articleAuthor').val());
     $.ajax({
-      url:"http://localhost:9000/api/posts",
+      url:"/api/posts",
       type:'POST',
       data: post,
       success:function(result){}

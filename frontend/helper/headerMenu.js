@@ -13,7 +13,7 @@ var showPosts = function(startingPage, limit){
 	};
 	//to save progress whe page reloads
 	$.ajax({
-		url:"http://localhost:9000/api/posts", 
+		url:"/api/posts", 
 		type:'GET',
 		data: posts,
 		success:function(result){
@@ -74,7 +74,7 @@ var showPosts = function(startingPage, limit){
 				$(this).on('click', function(){
 					if(confirm("You want to delete this article?")){
 				    $.ajax({
-				    	url:"http://localhost:9000/api/posts",
+				    	url:"/api/posts",
 				    	type:'DELETE',
 				    	data: {
 				    		id: $(this).val()
@@ -130,16 +130,15 @@ var showPosts = function(startingPage, limit){
 				    		text: $('#editText-' + id).val()
 				    	};
 					    $.ajax({
-					    	url:"http://localhost:9000/api/posts", 
+					    	url:"/api/posts", 
 					    	type:'PUT',
 					    	data: editedArticle,
-					    	success:function(result){
+					    	success:function(result){						    	
 					    	}
 					    });
-
 					    $("#editButton-" + id).text("e");
-					    $('#editForm-' + id).remove();
-					    isEdited = false;
+						  $('#editForm-' + id).remove();
+						  isEdited = false;
 					    return false;
 					  });
 					}else{

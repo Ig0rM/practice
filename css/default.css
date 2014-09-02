@@ -484,10 +484,11 @@ h2, h3, h4, h5, h6 {
     display: none;
 }
 .custom-tooltip-styling{
-    width: 100px;
-    
+    width: 200px;
+    height: 10px;
+    line-height: 10px;
     background-color: white;
-     border-top-left-radius: 35px;
+    border-top-left-radius: 35px;
     border-top-right-radius: 35px;
     border-bottom-right-radius: 35px;
     border-bottom-left-radius: 35px;
