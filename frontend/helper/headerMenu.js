@@ -86,23 +86,22 @@ var showPosts = function(startingPage, limit){
 			  });
 			}); 
 
-
 			//adds edition of article preview
 			$('.editButton').each(function(){
 				$(this).on('click', function(){
 					if(!isEdited){
 						isEdited = true;
-				//	if(confirm("You want to edit this article?")){
-				    $.ajax({
+						//	if(confirm("You want to edit this article?")){
+				    /*$.ajax({
 				    	url:"http://localhost:9000/api/posts/show", 
 				    	type:'GET',
 				    	data: {
 				    		id: $(this).val()
 				    	},
 				    	success:function(result){
-				    	article = JSON.parse(result);
-
-				    }});
+				    		article = JSON.parse(result);
+				    	}
+				  	});*/
 				    $('#articlePreview-' + $(this).val()).after(
 				    		'<form action="#" id="editForm-'+$(this).val()+'" class="editForm">Title: <input id="editTitle-'+$(this).val()+'" name="title" type="text" value='
 				    		+ $('#articleName-' + $(this).val() + '.articleName').text() //article.title 
@@ -113,10 +112,17 @@ var showPosts = function(startingPage, limit){
 				    		+'></div></br></br><input class="submitEditedArticle-'+$(this).val()+'" type="submit" name="submitEditedArticle" class="button-'+$(this).val()+'" value="Confirm"/></form>'
 				    		);
 
+				    $("#editButton-" + $(this).val()).text("v");
 				    $('#editForm-' + $(this).val()).slideDown(400);
 				    var id = $(this).val();
 				    
 				    $('#editForm-' + $(this).val()).submit(function() {
+
+				    	//console.log($('#articleName-' + id + ' a').text());
+				    	$('#articleName-' + id +' a').text($('#editTitle-' + id).val());
+				    	$('#previewText-' + id).text($('#editText-' + id).val());
+				    	$('#author-' + id +' i').text($('#editAuthorName-' + id).val());
+
 				    	var editedArticle = {
 				    		id: id,
 				    		title: $('#editTitle-' + id).val(),
@@ -128,14 +134,18 @@ var showPosts = function(startingPage, limit){
 					    	type:'PUT',
 					    	data: editedArticle,
 					    	success:function(result){
-					    		$('#editForm-' + $(this).val()).remove();
 					    	}
 					    });
+
+					    $("#editButton-" + id).text("e");
+					    $('#editForm-' + id).remove();
 					    isEdited = false;
+					    return false;
 					  });
 					}else{
 						if($('#editForm-' + $(this).val()).height() > 0){
 							var editId = $(this).val();
+							$("#editButton-" + $(this).val()).text("e");
 							$('#editForm-' + $(this).val()).slideUp(400, function(){
 								$('#editForm-' + editId).remove();
 								isEdited = false;	
@@ -144,6 +154,7 @@ var showPosts = function(startingPage, limit){
 							//nothing
 						}				
 					}  
+					//return false;
 			  });
 			});
 		}

@@ -36,15 +36,13 @@ var routes = [
   }
 ];
 
-
 prepareParams = function(req){
   if ( (req.method == 'POST') || (req.method == 'DELETE') || (req.method == 'PUT')) {
-      
+    
   }else{
     req.params = url.parse(req._parsedUrl.path, true).query;
     req.params = req.params || {};
   }
-
 }
 
 exports.createRoutes = function(middlewares) {

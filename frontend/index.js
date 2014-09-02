@@ -21,8 +21,8 @@ const NEXT_PAGE = '<button>Next</button>'; //next page button
 //info block at the sidebar
 const INFO = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>';
 
-const ADD_FORM = '<button class="addFormButton">+</button><i>Add new article</i></br><form action="#" id="articleForm">Title: <input id="articleTitle" name="title" type="text" value=""/> </br></br>Text: </br><textarea id="articleText" name="text" rows="5" cols="95"  value=""></textarea></br></br><div id="articleAuthor">Author: <input name="author" id="author" type="text" value=""/></div></br></br><input class="submitArticle" type="submit" name="submitArticle" class="button" value="Add new"/></form>';
-
+const ADD_FORM = '<button class="addFormButton">+</button><i>Add new article</i></br><form action="#" id="articleForm">Title: <input id="articleTitle" title="Type article title" name="title" type="text" value=""/> </br></br>Text: </br><textarea id="articleText" title="Type article content" name="text" rows="5" cols="95"  value=""></textarea></br></br><div id="articleAuthor">Author: <input name="author" id="author" title="Type author name" type="text" value=""/></div></br></br><input class="submitArticle" type="submit" name="submitArticle"  title="Create an article" class="button" value="Add new"/></form>';
+//<input id="articleCreated" title="Article was created!">
 /*const ADD_FORM = '';*/
 /*=====================FOOTER*/
 const QUOTE = "<p><b>Lovely Quote:</b> <span class='quoteText'>There may be no 'I' in team, but there's a 'ME' if you look hard enough. - David Brent</span></p>"; //quote at the footer
@@ -75,6 +75,14 @@ setQuote = function(){
 
 
 $(document).ready(function(){
+
+$(function() {
+  $(document).tooltip({
+    tooltipClass: "custom-tooltip-styling"
+  });
+});
+
+
   $("#header-container").loadTemplate("#headerTemplate",
     {
       logotype: LOGOTYPE,
@@ -176,6 +184,14 @@ $(document).ready(function(){
       data: post,
       success:function(result){}
     });
+
+    $('#articleTitle').val('');
+    $('#author').val('');
+    $('#articleText').val('');
+    $("#articleForm").slideUp(400);
+    $(".addFormButton").text("+");
+    formHide = true;
+    return false;
   });
 
   

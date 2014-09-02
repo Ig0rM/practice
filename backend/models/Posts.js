@@ -72,5 +72,6 @@ exports.show = function(id, cb){
 	var bd = connection.bd();
 	bd.queryRow('SELECT * FROM articles where id=?', [id], function(err, row) {
     cb(err, row);
+    console.log(row);
   });
 };

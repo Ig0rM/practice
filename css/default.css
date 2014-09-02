@@ -479,9 +479,22 @@ h2, h3, h4, h5, h6 {
 }
 
 .editForm{
+    padding: 10px;
     background-color: #818181;
     display: none;
 }
+.custom-tooltip-styling{
+    width: 100px;
+    
+    background-color: white;
+     border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+}
+/*#articleCreated {
+    display: none;
+}*/
 /*
 +++++++++++++++++++++++++++++++++
 +++++++++++pagination++++++++++++
