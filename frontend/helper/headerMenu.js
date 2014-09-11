@@ -5,6 +5,7 @@ var lastPage = false;
 var isEdited = false;
 var article;
 var posts;
+var id;
 //adds element article
 var showPosts = function(startingPage, limit){
 	posts = {
@@ -49,7 +50,7 @@ var showPosts = function(startingPage, limit){
 					+ article[i].title 
 					+"</a></div><div><p class='previewText' id='previewText-"
 					+ article[i].id 
-					+"'>" 
+					+"'>"
 					+ article[i].content 
 					+ "</p></div><div class='date' id='date-"
 					+ article[i].id 
@@ -72,6 +73,8 @@ var showPosts = function(startingPage, limit){
 			//adds deletion of article preview
 			$('.delButton').each(function(){
 				$(this).on('click', function(){
+					var self = this;
+
 					if(confirm("You want to delete this article?")){
 				    $.ajax({
 				    	url:"/api/posts",
@@ -79,7 +82,13 @@ var showPosts = function(startingPage, limit){
 				    	data: {
 				    		id: $(this).val()
 				    	},
-				    	success:function(result){}
+				    	success:function(result){
+
+				    	}/*,
+				    	error:function(){
+				    		console.log($(self).val());
+				    		$('#articlePreview-' + $(self).val()).fadeOut(400);
+				    	}*/
 				    });
 				    $('#articlePreview-' + $(this).val()).fadeOut(400);
 				  }
@@ -89,36 +98,22 @@ var showPosts = function(startingPage, limit){
 			//adds edition of article preview
 			$('.editButton').each(function(){
 				$(this).on('click', function(){
+					id = $(this).val();
 					if(!isEdited){
 						isEdited = true;
-						//	if(confirm("You want to edit this article?")){
-				    /*$.ajax({
-				    	url:"http://localhost:9000/api/posts/show", 
-				    	type:'GET',
-				    	data: {
-				    		id: $(this).val()
-				    	},
-				    	success:function(result){
-				    		article = JSON.parse(result);
-				    	}
-				  	});*/
-				    $('#articlePreview-' + $(this).val()).after(
-				    		'<form action="#" id="editForm-'+$(this).val()+'" class="editForm">Title: <input id="editTitle-'+$(this).val()+'" name="title" type="text" value='
-				    		+ $('#articleName-' + $(this).val() + '.articleName').text() //article.title 
-				    		+'> </br></br>Text: </br><textarea id="editText-'+$(this).val()+'" name="text" rows="5" cols="95"  value="">'
-				    		+ $('#previewText-' + $(this).val() + '.previewText').text()
-				    		+'</textarea></br></br><div id="editAuthor-'+$(this).val()+'">Author: <input id="editAuthorName-'+$(this).val()+'" name="author" type="text" value='
-				    		+ $('#author-' + $(this).val() + '.author i').text()
-				    		+'></div></br></br><input class="submitEditedArticle-'+$(this).val()+'" type="submit" name="submitEditedArticle" class="button-'+$(this).val()+'" value="Confirm"/></form>'
-				    		);
+				    $('#articlePreview-' + id).after(
+				    		'<form action="#" id="editForm-' + id + '" class="editForm">Title: <input id="editTitle-' + id + '" name="title" type="text" value='
+				    		+ $('#articleName-' + id + '.articleName').text() //article.title 
+				    		+'> </br></br>Text: </br><textarea id="editText-' + id + '" name="text" rows="5" cols="95"  value="">'
+				    		+ $('#previewText-' + id + '.previewText').text()
+				    		+'</textarea></br></br><div id="editAuthor-' + id + '">Author: <input id="editAuthorName-' + id + '" name="author" type="text" value='
+				    		+ $('#author-' + id + '.author i').text()
+				    		+'></div></br></br><input class="submitEditedArticle-' + id + '" type="submit" name="submitEditedArticle" class="button-' + id + '" value="Confirm"/></form>'
+				    	);
 
-				    $("#editButton-" + $(this).val()).text("v");
-				    $('#editForm-' + $(this).val()).slideDown(400);
-				    var id = $(this).val();
-				    
-				    $('#editForm-' + $(this).val()).submit(function() {
-
-				    	//console.log($('#articleName-' + id + ' a').text());
+				    $("#editButton-" + id).text("v");
+				    $('#editForm-' + id).slideDown(400);
+				    $('#editForm-' + id).on('submit', function() {
 				    	$('#articleName-' + id +' a').text($('#editTitle-' + id).val());
 				    	$('#previewText-' + id).text($('#editText-' + id).val());
 				    	$('#author-' + id +' i').text($('#editAuthorName-' + id).val());
@@ -142,17 +137,16 @@ var showPosts = function(startingPage, limit){
 					    return false;
 					  });
 					}else{
-						if($('#editForm-' + $(this).val()).height() > 0){
-							var editId = $(this).val();
-							$("#editButton-" + $(this).val()).text("e");
-							$('#editForm-' + $(this).val()).slideUp(400, function(){
-								$('#editForm-' + editId).remove();
+						if($('#editForm-' + id).height() > 0){
+							$("#editButton-" + id).text("e");
+							$('#editForm-' + id).slideUp(400, function(){
+								$('#editForm-' + id).remove();
 								isEdited = false;	
 							});
 						}else{
 							//nothing
-						}				
-					}  
+						}
+					}
 					//return false;
 			  });
 			});
@@ -201,18 +195,4 @@ $('#prevPage').on('click', function(){
 	}
 
 	showPosts(startingPage, limit);
-});
-
-$('#hmenu p').on('mousemove', function() {
-  $(this).css('background-image', '../images/hmenuarrowhover.gif');
-  $(this).css('background-color', '#2A3E59');
-  $(this).css('border-bottom', '3px solid navy');
-  $(this).find('a').css('color', '#FFFFFF');
-});
-
-$('#hmenu p').on('mouseleave', function() {
-  $(this).css('background-image', '../images/hmenuarrow.gif');
-  $(this).css('background-color', '#CBCBCB');
-  $(this).css('border-bottom', '3px solid #A5A1A1');
-  $(this).find('a').css('color', 'black');
 });

@@ -31,8 +31,7 @@ module.exports = function(grunt) {
         }
     });
 
-    // grunt tasks 
+    // grunt tasks
     grunt.registerTask('default', ['concat']);
     grunt.registerTask('server', ['concat', 'connect']);
-
 };

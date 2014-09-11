@@ -27,10 +27,8 @@ h2, h3, h4, h5, h6 {
     max-width: 750px;
     /*min-height: 75px;*/
     min-width: 750px;
-
-
-
 }
+
 #logo {
     float: left;
 
@@ -109,43 +107,41 @@ h2, h3, h4, h5, h6 {
     text-decoration: none;
     font-size: 8pt;
     background-color: #CBCBCB;
+}
 
 
+#hmenu p:hover{
+    background-image: url(../images/hmenuarrowhover.gif);
+    background-color: #2A3E59;
+    border-bottom: 3px solid navy;
 
 }
 
 #hmenu p a {
-
     color: black;
     text-decoration: none;
 }
 
 #hmenu p a:visited {
-
-    color: black;
+ /*   color: black;*/
     text-decoration: none;
 }
 
 #hmenu p a:hover {
-
-    text-decoration: none;
+    color: #FFFFFF;
 }
 
 #hmenu p a:active {
     
-    color: black;
+   /* color: black;*/
     text-decoration: none;
 }
-
 
 #login {
     clear: right;
     float: right;
-
     font-size: 8.5pt;
 }
-
-
 
 /*
 +++++++++++++++++++++++++++++++++

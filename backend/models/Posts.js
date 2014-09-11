@@ -1,77 +1,50 @@
 var connection = require('../connection.js');
 require("date-format-lite");
-var qs = require('querystring');
-var data = '';
 
+var bd = connection.bd();
+var date;
 
 exports.list = function(limit, page, cb){
-	var bd = connection.bd();
 	bd.query('SELECT * FROM articles LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
 		cb(err, results);
   });
 };
 
-exports.create = function(req, cb){
-	var bd = connection.bd();
-	var date = new Date();
-	req.on('data', function(chunk){
-		data += chunk;
-	});
+exports.create = function(article, cb){
+	date = new Date();
 
-	req.on('end', function() {
-    var article = qs.parse(data);
-    data = '';
-		bd.insert('articles', {
-			title: article.title,
-			content: article.text,
-			author: article.author,
-			date: date.format("D'th' MMM, YYYY")
-		}, function(err, results) {
-			cb(err, results);
-		});
-  });
-  
-};
-
-exports.destroy = function(req, cb){
-	req.on('data', function(chunk){
-		data += chunk;
-	});
-	var bd = connection.bd();
-	req.on('end', function() {
-    var article = qs.parse(data);
-    data = '';
-		bd.delete('articles', { id: article.id }, function(err, affectedRows) {
-	    cb(err, affectedRows);
-		});
+	bd.insert('articles', {
+		title: 		article.title,
+		content: 	article.text,
+		author: 	article.author,
+		date: 		date.format("D'th' MMM, YYYY")
+	}, function(err, results) {
+		cb(err, results);
 	});
 };
 
-exports.update = function(req, cb){
-	var bd = connection.bd();
-	var date = new Date();
-	req.on('data', function(chunk){
-		data += chunk;
+exports.destroy = function(article, cb){
+	bd.delete('articles', { id: article.id }, function(err, affectedRows) {
+    cb(err, affectedRows);
 	});
- 	req.on('end', function() {
-    var article = qs.parse(data);
-    data = '';
-	  bd.update('articles', {
-	  	id: article.id,
-			title: article.title,
-		  content: article.text,
-		  author: article.author,
-		  date: date.format("D'th' MMM, YYYY")
-	  }, function(err, results) {
-			cb(err, results);
-	  });
+};
+
+exports.update = function(article, cb){
+	date = new Date();
+
+  bd.update('articles', {
+  	id: 			article.id,
+		title: 		article.title,
+	  content: 	article.text,
+	  author: 	article.author,
+	  date: 		date.format("D'th' MMM, YYYY")
+  }, function(err, results) {
+		cb(err, results);
 	});
 };
 
 exports.show = function(id, cb){
-	var bd = connection.bd();
 	bd.queryRow('SELECT * FROM articles where id=?', [id], function(err, row) {
     cb(err, row);
-    console.log(row);
   });
 };

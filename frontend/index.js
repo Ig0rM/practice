@@ -74,14 +74,10 @@ setQuote = function(){
 }
 
 
-$(document).ready(function(){
-
-$(function() {
+$(function(){
   $(document).tooltip({
     tooltipClass: "custom-tooltip-styling"
   });
-});
-
 
   $("#header-container").loadTemplate("#headerTemplate",
     {
@@ -170,7 +166,7 @@ $(function() {
   setInterval(setQuote, 10000);
 
   //adds new article using form
-  $('#addArticle').submit(function() {
+  $('#addArticle').on('submit', function() {
     var post = {
       title: $('#articleTitle').val(),
       author: $('#author').val(),
@@ -194,7 +190,6 @@ $(function() {
     return false;
   });
 
-  
   $(".addFormButton").on('click', function(){
     if(formHide){
       $("#articleForm").slideDown(400);
