@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://localhost:9000/#limit=4&page=0 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://localhost:9000/favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://localhost:9000/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="starter-template.css" rel="stylesheet"> -->
+
+    <script src="./Starter Template for Bootstrap_files/jquery.min.js"></script>
+    <script src="./Starter Template for Bootstrap_files/bootstrap.min.js"></script>
+
+    <script src="./Starter Template for Bootstrap_files/underscore.js"></script>
+    <script src="./Starter Template for Bootstrap_files/backbone.js"></script>
+    <script src="./Starter Template for Bootstrap_files/url.min.js"></script>
+
+    <script data-main="js/index" src="./Starter Template for Bootstrap_files/require.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./Starter Template for Bootstrap_files/style.css">
+
+    <!-- <link rel="import" href="article.html"> -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!--  <script src="vendor/backbone.js"></script> -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="index" src="./Starter Template for Bootstrap_files/index.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="additional/loginForm" src="./Starter Template for Bootstrap_files/loginForm.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="additional/getArticles" src="./Starter Template for Bootstrap_files/getArticles.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="additional/createArticle" src="./Starter Template for Bootstrap_files/createArticle.js"></script></head>
+
+  <body>
+    
+    <!-- // <script type="text/html" src="../article.html"></script> -->
+    <!--   require(["../article"], function(article) {
+
+      }); -->
+    <div class="col-md-2 col-md-offset-5" id="notification">
+      <div class="alert alert-success" role="alert">
+        <a href="http://localhost:9000/#" class="alert-link">Article created</a>
+      </div>
+    </div>
+
+    <div class="row" id="header">
+        <div class="col-md-12">
+
+          <div class="col-md-3 col-md-offset-2" id="logo">
+            <div id="siteTitle">
+              <h1><a>Lorem ipsum</a></h1>
+              <p>Lorem ipsum, START, dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+
+          <div class="col-md-2 col-md-offset-4" id="loginBlock">
+
+            <form class="form-inline" role="form" id="loginForm">
+
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Enter login">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Remember
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-default">Sign in</button>
+              </div>
+              
+            </form>
+            
+            <span class="glyphicon glyphicon-chevron-up" id="arrowLogin"></span>
+            <span class="glyphicon glyphicon-chevron-down" id="arrowLogin"></span>
+          </div>
+
+          <div class="col-md-12" id="hmenuAndSearch">
+
+            <nav class="navbar navbar-default" id="hmenu" role="navigation">
+
+              <form class="navbar-form" id="searchForm" role="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+              </form>
+
+              <div class="container">
+                <ul class="nav navbar-nav">
+                  <li><a href="http://localhost:9000/#">Home</a></li>
+                  <li><a href="http://localhost:9000/#">Profile</a></li>
+                  <li><a href="http://localhost:9000/#">Messages</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="http://localhost:9000/#">
+                      Dropdown <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>1.____</li>
+                      <li>2.____</li>
+                      <li>3.____</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+          </div>
+
+        </div>
+      </div>
+
+    <div class="row" id="main">
+
+        <div id="content" class="col-md-12">
+          
+            <div id="leftSide">
+              <div class="col-md-7 col-md-offset-5">
+                <div id="mainArticle">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
+
+                  Vestibulum tristique viverra orci et iaculis. Ut consequat dignissim mattis. Nunc vitae scelerisque nunc, vel pharetra justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse non tellus neque. Morbi molestie tellus sit amet justo varius condimentum. Aliquam sit amet est sapien. Aliquam eget sagittis ex. Nulla mauris diam, scelerisque nec urna id, elementum consequat libero. In imperdiet aliquet laoreet. Nam velit est, varius ac ligula sed, posuere faucibus diam. Phasellus vestibulum lobortis lacus et congue. Morbi sed turpis nec mauris dignissim pulvinar ac at magna. Cras dignissim metus eros, non varius magna luctus at. Nunc commodo iaculis molestie.
+                </div>
+              </div>
+              <div class="col-md-7 col-md-offset-5" id="showOrCreateBlock">
+                <div id="contentTitle"></div>
+                <div class="panel-group" id="accordion">
+                    <div id="addArticleBlock">
+                      <div id="addArticleFormTitle">Add new article</div>
+                      <form role="form">
+                        <div class="form-group">
+                          <label for="inputTitle">Article title</label>
+                          <input type="text" class="form-control" id="inputTitle" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputText">Article content</label>
+                          <textarea class="form-control" id="inputText" placeholder="Enter text" style="resize:none" rows="11"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputAuthor">Author name</label>
+                          <input type="text" class="form-control" id="inputAuthor" placeholder="Enter author">
+                        </div>
+                        <button type="submit" class="btn btn-default">Add new</button>
+                      </form>
+                    </div>
+                  </div>
+
+                <div id="paginationBlock"></div>
+
+                
+                  <script type="text/template" id="addArticle">
+                    <div id="addArticleBlock">
+                      <div id="addArticleFormTitle">Add new article</div>
+                      <form role="form">
+                        <div class="form-group">
+                          <label for="inputTitle">Article title</label>
+                          <input type="text" class="form-control" id="inputTitle" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputText">Article content</label>
+                          <textarea class="form-control" id="inputText" placeholder="Enter text" style="resize:none" rows="11"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputAuthor">Author name</label>
+                          <input type="text" class="form-control" id="inputAuthor" placeholder="Enter author">
+                        </div>
+                        <button type="submit" class="btn btn-default">Add new</button>
+                      </form>
+                    </div>
+                  </script>
+
+              </div>
+            </div>
+            <div id="rightSide">
+              <div class="col-md-10 col-md-offset-0">
+                <div id="articlesNavigation">
+                  <div id="dateList">
+                    <ul class="list-unstyled">
+                      <li><a>Aug 2014</a></li>
+                      <li><a>Jun 2014</a></li>
+                      <li><a>July 2014</a></li>
+                      <li><a>May 2014</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" id="footer">
+      <div class="col-md-12" id="siteFooter">
+          <nav class="navbar navbar-default" id="fmenu" role="navigation">
+            <div class="container" id="fnav">
+              <ul class="nav navbar-nav">
+                <li><a href="http://localhost:9000/#">Home</a></li>
+                <li><a href="http://localhost:9000/#">Author</a></li>
+                <li><a href="http://localhost:9000/#">RSS</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./Starter Template for Bootstrap_files/jquery.min(1).js"></script>
+    <!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  
+</body></html>
