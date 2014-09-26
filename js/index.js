@@ -243,6 +243,21 @@ $(function(){
         $('#addOrEditArticleBlock').slideDown(500);
       });
 
+      //dropdown menu
+      $('#theme1nav').on('click', function(){
+        var view = new View({model: appState});
+        view.theme1(); 
+      });
+
+      $('#theme2nav').on('click', function(){
+        var view = new View({model: appState});
+        view.theme2(); 
+      });
+
+      $('#theme3nav').on('click', function(){
+        var view = new View({model: appState});
+        view.theme3(); 
+      });
   });
 
   app_router.on('route:profile', function(){ 
@@ -257,29 +272,15 @@ $(function(){
       //view.showAddArticle();
   });
 
-
 	Backbone.history.start({pushState: true});
-
-
 
   require(["additional/loginForm"], function(article) {
 
   });
 
-  // require(["additional/searchForm"], function(article) {
+  require(["additional/searchForm"], function(article) {
 
-  // });
+  });
  
-      $('#theme1nav').on('click', function(){
-        var view = new View({model: appState});
-        view.theme1(); 
-      });
-      $('#theme2nav').on('click', function(){
-        var view = new View({model: appState});
-        view.theme2(); 
-      });
-      $('#theme3nav').on('click', function(){
-        var view = new View({model: appState});
-        view.theme3(); 
-      });
+      
 });

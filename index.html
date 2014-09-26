@@ -12,11 +12,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <!-- Custom styles for this template -->
     <!-- <link href="starter-template.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css"/>
 
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="vendor/jquery-ui.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
     <script src="js/underscore.js"></script>
@@ -26,7 +29,7 @@
 
     <script data-main="js/index" src="vendor/require.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    
 
     <!-- <link rel="import" href="article.html"> -->
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -101,9 +104,9 @@
 
             <nav class="navbar navbar-default" id="hmenu" role="navigation">
 
-              <form class="navbar-form" id="searchForm" role="search">
+              <form class="navbar-form" id="searchForm" role="search" action="#">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="searchForm" placeholder="Search">
+                  <input type="text" name="searchField" class="form-control" id="searchField" placeholder="Search" val="">
                 </div>
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
               </form>
@@ -140,22 +143,22 @@
           <!-- themes -->
                 <script type="text/template" id="theme1Content">
                   <div class="col-md-7 col-md-offset-5">
-                    <div id="theme1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
+                    <div id="theme1" class="themes">
+                      1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
                     </div>
                   </div>
                 </script>
                 <script type="text/template" id="theme2Content">
                   <div class="col-md-7 col-md-offset-5">
-                    <div id="theme2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
+                    <div id="theme2" class="themes">
+                      2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
                     </div>
                   </div>
                 </script>
                 <script type="text/template" id="theme3Content">
                   <div class="col-md-7 col-md-offset-5">
-                    <div id="theme3">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
+                    <div id="theme3" class="themes">
+                      3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
                     </div>
                   </div>
                 </script>
@@ -310,7 +313,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
