@@ -20,18 +20,10 @@ module.exports = function(grunt) {
                 }
             },
         },
-    },
-        concat: {
-            dist: {
-                src: [
-                    'frontend/*.js'
-                ],
-                dest: 'main.js',
-            }
-        }
+    }
     });
 
     // grunt tasks
     grunt.registerTask('default', ['concat']);
-    grunt.registerTask('server', ['concat', 'connect']);
+    grunt.registerTask('server', ['connect']);
 };

@@ -31,10 +31,11 @@ exports.create = function(req, res){
 	});
 
 	req.on('end', function() {
-	 	article = qs.parse(data);
+	 //	article = qs.parse(data);
+	 	article = JSON.parse(data);
 
 
-	    console.log(article);
+	    
 
 		Posts.create(article, function(err, posts){
 			//res.send(err, posts)
@@ -82,8 +83,10 @@ exports.update = function(req, res){
 	});
 
 	req.on('end', function() {
-		article = qs.parse(data);
+		// article = qs.parse(data);
 
+		article = JSON.parse(data);
+		console.log(article);
 		Posts.update(article, function(err, posts){
 			//res.send(err, posts)
 			if (err) {

@@ -11,6 +11,46 @@ $(function(){
     }
 	});
 
+  var Article = Backbone.Model.extend({
+    urlRoot: '/api/posts'
+  });
+
+  var article = new Article();
+  article.fetch(
+      {
+        data: {
+            limit: 3,
+            page: 0
+        }
+      },
+
+      {
+        success: function (article) {
+            console.log(article.toJSON());
+        }
+      }
+  );
+
+  // article.set({
+  //   title: 'by backbone',
+  //   author: 'backbone',
+  //   text: 'new article text'
+  // });
+  // article.save();
+
+
+  article.set({
+    id: 232,
+    title: 'byd backbone',
+    author: 'backbone',
+    text: 'new article text'
+  });
+
+  article.save();
+
+
+
+
 	var appState = new AppState();
 
 	var Router = Backbone.Router.extend({
@@ -286,7 +326,7 @@ $(function(){
 	Backbone.history.start({pushState: true});
 
   require(["additional/loginForm"], function(article) {
-
+    
   });
 
   require(["additional/searchForm"], function(article) {
