@@ -2,6 +2,7 @@ var Posts = require('../models/Posts.js');
 var qs = require('querystring');
 var DEFAULT_LIMIT = 4;
 var DEFAULT_PAGE = 0;
+var DEFAULT_DATE = "";
 
 var article;
 
@@ -9,8 +10,9 @@ var article;
 exports.index = function(req, res){
 	var limit = req.params.limit || DEFAULT_LIMIT;
 	var page = req.params.page || DEFAULT_PAGE;
+	var date = req.params.date || DEFAULT_DATE;
 
-	Posts.list(limit, page, function(err, posts){
+	Posts.list(limit, page, date, function(err, posts){
 		if (err) {
 			res.statusCode = 500;
 			res.end(JSON.stringify(err));

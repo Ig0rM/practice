@@ -4,8 +4,13 @@ require("date-format-lite");
 var bd = connection.bd();
 var date;
 
-exports.list = function(limit, page, cb){
-	bd.query('SELECT * FROM articles LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
+exports.list = function(limit, page, date, cb){
+	if(date != ''){
+		var where = 'WHERE date > \'' + '24th ' + date + '\' AND date < \'' + '32th ' + date + '\'';
+	}else{
+		var where = '';
+	}
+	bd.query('SELECT * FROM articles ' + where + ' LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
 		cb(err, results);
   });
 };

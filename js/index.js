@@ -216,6 +216,13 @@ $(function(){
                     Router: Router
                 });
 
+            articles.showByDate({
+                    View: View,
+                    AppState: AppState,
+                    Router: Router
+                });
+
+
             $('#nextListOfPages').on('click', function(config){
               if(!$(this).hasClass('disabled')){
                 articles.showNext({
@@ -238,9 +245,13 @@ $(function(){
       });
       
       $('#createButton').on('click', function(){
-        var view = new View({model: appState});
-        view.showAddArticle();
-        $('#addOrEditArticleBlock').slideDown(500);
+        if ($('#addOrEditArticleBlock').is(':visible')){
+          $('#addOrEditArticleBlock').slideUp(500);
+        }else{
+          var view = new View({model: appState});
+          view.showAddArticle();
+          $('#addOrEditArticleBlock').slideDown(500);
+        }
       });
 
       //dropdown menu

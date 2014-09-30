@@ -11,18 +11,18 @@ function delHandler(){
 		      	$('.notification-danger').fadeIn(1000).delay(1000).fadeOut(1000);
 				}else{
 			      if(confirm("You want to delete this article?")){
-			      	$('#panel-' + id).fadeOut(500);
+				      	$('#panel-' + id).fadeOut(500);
 
-			        $.ajax({
-			          url:"/api/posts",
-			          type:'DELETE',
-			          data: {id: id},
-			          success:function(result){}
-			        });
+				        $.ajax({
+				          url:"/api/posts",
+				          type:'DELETE',
+				          data: {id: id},
+				          success:function(result){}
+				        });
 
-			        $('.notification-success').addClass('center');
-		      		$('.notification-success .alert-success').text('Article was successfully deleted!');
-		      		$('.notification-success').fadeIn(1000).delay(1000).fadeOut(1000);
+				        $('.notification-success').addClass('center');
+			      		$('.notification-success .alert-success').text('Article was successfully deleted!');
+			      		$('.notification-success').fadeIn(1000).delay(1000).fadeOut(1000);
 		      	}
 				}
   	});
@@ -33,60 +33,65 @@ function editHandler(){
 	//editing button click event
 	$('.editButton').each(function(){
 		$(this).on('click', function(){
-				var id = $(this).val();
-				var prevTitle = $('#articleTitle-' + id).text();
-				var prevText = $('#articleContent-' + id).text();
-				var prevAuthor = $('#articleAuthor-' + id).text();
-				var prevDate = $('#articleDate-' + id).text();
+			//check if the form is visible
+			if (!$('#addOrEditArticleBlock').is(':visible')){
+					var id = $(this).val();
+					var prevTitle = $('#articleTitle-' + id).text();
+					var prevText = $('#articleContent-' + id).text();
+					var prevAuthor = $('#articleAuthor-' + id).text();
+					var prevDate = $('#articleDate-' + id).text();
 
-				//sliding edit form down
-				if (!$('#addOrEditArticleBlock').is(':visible')){
+					//sliding edit form down
 					$('#addOrEditArticleBlock').slideDown(500);
-				}
+					
 
-				$('#addOrEditArticleFormTitle').text('Edit article');
-				$('#addSubmit').text('Confirm');
-				//setting previous content of article
-				$('#inputTitle').val(prevTitle);
-				$('#inputText').val(prevText);
-				$('#inputAuthor').val(prevAuthor);
-				
+					$('#addOrEditArticleFormTitle').text('Edit article');
+					$('#addSubmit').text('Confirm');
+					//setting previous content of article
+					$('#inputTitle').val(prevTitle);
+					$('#inputText').val(prevText);
+					$('#inputAuthor').val(prevAuthor);
+					
 
-				$('#addOrEditArticleBlock').off('submit');
-				//when submited
-				$('#addOrEditArticleBlock').on('submit', function(){
-					var editedArticle = {
-						id: id,
-						title: $('#inputTitle').val(),
-						author: $('#inputAuthor').val(),
-						text: $('#inputText').val()
-					}
+					$('#addOrEditArticleBlock').off('submit');
+					//when submited
+					$('#addOrEditArticleBlock').on('submit', function(){
+						var editedArticle = {
+							id: id,
+							title: $('#inputTitle').val(),
+							author: $('#inputAuthor').val(),
+							text: $('#inputText').val()
+						}
 
-					$.ajax({
-			    	url:"/api/posts", 
-			    	type:'PUT',
-			    	data: editedArticle,
-			    	success:function(result){}
-			    });
+						$.ajax({
+				    	url:"/api/posts", 
+				    	type:'PUT',
+				    	data: editedArticle,
+				    	success:function(result){}
+				    });
 
-					//show changes
-					$('#articleTitle-' + id).text(editedArticle.title);
-					$('#articleContent-' + id).text(editedArticle.text);
-					$('#articleAuthor-' + id).text(editedArticle.author);
+						//show changes
+						$('#articleTitle-' + id).text(editedArticle.title);
+						$('#articleContent-' + id).text(editedArticle.text);
+						$('#articleAuthor-' + id).text(editedArticle.author);
 
-					$('.notification-success').addClass('center');
-		      $('.notification-success .alert-success').text('Article was successfully edited!');
-		      $('.notification-success').fadeIn(1000).delay(1000).fadeOut(1000);
+						$('.notification-success').addClass('center');
+			      $('.notification-success .alert-success').text('Article was successfully edited!');
+			      $('.notification-success').fadeIn(1000).delay(1000).fadeOut(1000);
 
-					//slide up when edited
-			    $('#addOrEditArticleBlock').slideUp(500);
+						//slide up when edited
+				    $('#addOrEditArticleBlock').slideUp(500);
 
-			    return false;
+				    return false;
 				});	//when submited
-				
+			}else{
+					//sliding edit form up
+					$('#addOrEditArticleBlock').slideUp(500);
+			}
 		});
 	}); //editing
 }
+
 
 
 //save list of articles when page reloads, gets page and limit fron url string
@@ -132,12 +137,12 @@ define(function () {
     showNext: function(config){
     	//che if all operations compleated
     	if ($('#addOrEditArticleBlock').is(':visible')){
-						$('.notification-danger').addClass('center');
-		      	$('.notification-danger .alert-danger').text('First finish article creation or edition');
-		      	$('.notification-danger').fadeIn(1000).delay(1000).fadeOut(1000);
+					$('.notification-danger').addClass('center');
+	      	$('.notification-danger .alert-danger').text('First finish article creation or edition');
+	      	$('.notification-danger').fadeIn(1000).delay(1000).fadeOut(1000);
 			}else{//else
 		    	if($('#previousListOfPages').hasClass('disabled')){
-		    		$('#previousListOfPages').removeClass("disabled");
+		    			$('#previousListOfPages').removeClass("disabled");
 		    	}
 
 		    	var posts = checkUrl();
@@ -211,6 +216,40 @@ define(function () {
 		  		});
 		  		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
 		  }//else
+    },
+
+    //show articles by date
+    //!!!! NOW SET FROM 24th to 32th 
+    showByDate: function(config){
+				$('#dateList a').each(function(){
+					$(this).on('click', function(){
+							var date = $(this).text();
+							var posts = {
+								limit: 40,
+								page: 0,
+								date: date
+							};
+
+				      $.ajax({
+					      url:"/api/posts", 
+					      type:'GET',
+					      data: posts,
+
+					      success: function(result){
+						        var appState = new config.AppState();
+						        var view = new config.View({model: appState});
+						        var articles = JSON.parse(result);
+
+						        appState.set({articles: articles});
+						        view.showArticles();
+						        delHandler();							
+						        editHandler();
+				    		}
+				  		});
+				  		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
+
+					});
+				});
     }
 
 	};
