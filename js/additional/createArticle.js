@@ -3,19 +3,18 @@ define(function () {
 	return {
 		//article creation
 		create: function(config){
-			var post = {
-	      title: $('#inputTitle').val(),
-	      text: $('#inputText').val(),
-	      author: $('#inputAuthor').val()
-	    };
+      var Article = Backbone.Model.extend({
+		    urlRoot: '/api/posts'
+		  });
+      var article = new Article();
 
-      $.ajax({
-	    	url: 'http://127.0.0.1:9000/api/posts',
-	      type:'POST',
-	      data: post,
-	      success: function(result){
-    		}
-  		});
+		  article.set({
+		    title: $('#inputTitle').val(),
+		    author: $('#inputAuthor').val(),
+		    text: $('#inputText').val()
+		  });
+
+		  article.save();
 
       //notification window
       $('.notification-success').addClass('center');

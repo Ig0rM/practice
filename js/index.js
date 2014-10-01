@@ -11,44 +11,6 @@ $(function(){
     }
 	});
 
-  var Article = Backbone.Model.extend({
-    urlRoot: '/api/posts'
-  });
-
-  var article = new Article();
-  article.fetch(
-      {
-        data: {
-            limit: 3,
-            page: 0
-        }
-      },
-
-      {
-        success: function (article) {
-            console.log(article.toJSON());
-        }
-      }
-  );
-
-  // article.set({
-  //   title: 'by backbone',
-  //   author: 'backbone',
-  //   text: 'new article text'
-  // });
-  // article.save();
-
-
-  article.set({
-    id: 232,
-    title: 'byd backbone',
-    author: 'backbone',
-    text: 'new article text'
-  });
-
-  article.save();
-
-
 
 
 	var appState = new AppState();
@@ -174,7 +136,14 @@ $(function(){
       var state = this.model.get("state");
 
       $(this.siteContent).html("");
-      for (var i = this.model.attributes.articles.length-2; i >= 0; i--) {
+
+      //to show no more than 3 articles
+      var j = 2;
+      if(Object.keys(this.model.attributes.articles).length < 4){
+        j = 1;
+      }
+
+      for (var i = Object.keys(this.model.attributes.articles).length-j; i >= 0; i--) {
         $(this.siteContent).html($(this.siteContent).html() + this.siteContents[state](this.model.attributes.articles[i]));
       }
       

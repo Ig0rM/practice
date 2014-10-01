@@ -13,12 +13,23 @@ function delHandler(){
 			      if(confirm("You want to delete this article?")){
 				      	$('#panel-' + id).fadeOut(500);
 
-				        $.ajax({
-				          url:"/api/posts",
-				          type:'DELETE',
-				          data: {id: id},
-				          success:function(result){}
-				        });
+				      	var Article = Backbone.Model.extend({
+							    urlRoot: '/api/posts'
+							  });
+
+							  var article = new Article();
+							  article.set({id: id});
+
+							  article.destroy({
+							  	data: id,
+
+					        success: function () {
+					            alert('Destroyed');
+					        },
+					        error: function () {
+					            alert('Destroyed (error)');
+					        }
+						    });
 
 				        $('.notification-success').addClass('center');
 			      		$('.notification-success .alert-success').text('Article was successfully deleted!');
@@ -56,24 +67,26 @@ function editHandler(){
 					$('#addOrEditArticleBlock').off('submit');
 					//when submited
 					$('#addOrEditArticleBlock').on('submit', function(){
-						var editedArticle = {
-							id: id,
-							title: $('#inputTitle').val(),
-							author: $('#inputAuthor').val(),
-							text: $('#inputText').val()
-						}
 
-						$.ajax({
-				    	url:"/api/posts", 
-				    	type:'PUT',
-				    	data: editedArticle,
-				    	success:function(result){}
-				    });
+
+						var Article = Backbone.Model.extend({
+					    urlRoot: '/api/posts'
+					  });
+
+					  var article = new Article();
+					  article.set({
+					    id: id,
+					    title: $('#inputTitle').val(),
+					    author: $('#inputAuthor').val(),
+					    text: $('#inputText').val()
+					  });
+
+					  article.save();
 
 						//show changes
-						$('#articleTitle-' + id).text(editedArticle.title);
-						$('#articleContent-' + id).text(editedArticle.text);
-						$('#articleAuthor-' + id).text(editedArticle.author);
+						$('#articleTitle-' + id).text(article.get('title'));
+						$('#articleContent-' + id).text(article.get('text'));
+						$('#articleAuthor-' + id).text(article.get('author'));
 
 						$('.notification-success').addClass('center');
 			      $('.notification-success .alert-success').text('Article was successfully edited!');
@@ -114,22 +127,26 @@ define(function () {
 		show: function(config){
 			var posts = checkUrl();
 
-      $.ajax({
-	      url:"/api/posts", 
-	      type:'GET',
-	      data: posts,
+			var Articles = Backbone.Model.extend({
+		    urlRoot: '/api/posts'
+		  });
 
-	      success: function(result){
-		        var appState = new config.AppState();
+		  var articles = new Articles();
+		  articles.fetch({
+	      	data: posts,
+	      	
+	        success: function (articles) {
+	        	var appState = new config.AppState();
 		        var view = new config.View({model: appState});
-		        var articles = JSON.parse(result);
+		        var list = articles.toJSON();
 
-		        appState.set({articles: articles});
+		        appState.set({articles: list});
 		        view.showArticles();
 		        delHandler();							
 		        editHandler();
-    		}
-  		});
+	        }
+		  });
+
   		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
     },
 
@@ -149,30 +166,30 @@ define(function () {
 		    	posts.page += ( posts.limit-1 );
 		    	var app_router = new config.Router();
 
-		      $.ajax({
-			      url:"/api/posts", 
-			      type:'GET',
-			      data: posts,
+     			var Articles = Backbone.Model.extend({
+				    urlRoot: '/api/posts'
+				  });
 
-			      success: function(result){
-			      		var appState = new config.AppState();
+				  var articles = new Articles();
+				  articles.fetch({
+			      	data: posts,
+			      	
+			        success: function (articles) {
+			        	var appState = new config.AppState();
 				        var view = new config.View({model: appState});
-				        var articles = JSON.parse(result);
+				        var list = articles.toJSON();
 
 				        //checks id it was the last set of articles and disable button
 				        if(articles.length < posts.limit){
 				        	$('#nextListOfPages').addClass("disabled");
 				        }
 
-			          appState.set({articles: articles});
-			          view.showArticles();
-			          delHandler();							
+				        appState.set({articles: list});
+				        view.showArticles();
+				        delHandler();							
 				        editHandler();
-		    		}
-		  		});
-		  		//Backbone.history.navigate("#tasks/", { trigger: true });
-		  		//Backbone.history.navigate("#public", {trigger:true, replace: true});
-		  		//app_router.navigate("/dddd", {trigger:true, replace: true});
+			        }
+				  });
 		  		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
   		}//else
     },
@@ -193,27 +210,29 @@ define(function () {
 		    	var posts = checkUrl();
 		    	posts.page -= ( posts.limit-1 );
 
-		      $.ajax({
-			      url:'/api/posts', 
-			      type:'GET',
-			      data: posts,
+		      var Articles = Backbone.Model.extend({
+				    urlRoot: '/api/posts'
+				  });
 
-			      success: function(result){
-			      		var appState = new config.AppState();
+				  var articles = new Articles();
+				  articles.fetch({
+			      	data: posts,
+			      	
+			        success: function (articles) {
+			        	var appState = new config.AppState();
 				        var view = new config.View({model: appState});
-				        var articles = JSON.parse(result);
-
+				        var list = articles.toJSON();
 				        //checks id it was the first set of articles and disable button
 					    	if(posts.page == 0){
 					    		$('#previousListOfPages').addClass("disabled");
 					    	}
 
-			          appState.set({articles: articles});
-			          view.showArticles();
-			          delHandler();							
+			          appState.set({articles: list});
+				        view.showArticles();
+				        delHandler();							
 				        editHandler();
-		    		}
-		  		});
+			        }
+				  });
 		  		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
 		  }//else
     },
@@ -230,20 +249,23 @@ define(function () {
 								date: date
 							};
 
-				      $.ajax({
-					      url:"/api/posts", 
-					      type:'GET',
-					      data: posts,
+				     var Articles = Backbone.Model.extend({
+					    urlRoot: '/api/posts'
+					  });
 
-					      success: function(result){
-						        var appState = new config.AppState();
-						        var view = new config.View({model: appState});
-						        var articles = JSON.parse(result);
+					  var articles = new Articles();
+					  articles.fetch({
+				      	data: posts,
+				      	
+				        success: function (articles) {
+				        	var appState = new config.AppState();
+					        var view = new config.View({model: appState});
+					        var list = articles.toJSON();
 
-						        appState.set({articles: articles});
-						        view.showArticles();
-						        delHandler();							
-						        editHandler();
+					        appState.set({articles: list});
+					        view.showArticles();
+					        delHandler();							
+					        editHandler();
 				    		}
 				  		});
 				  		window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;

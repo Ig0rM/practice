@@ -28,8 +28,8 @@ exports.create = function(article, cb){
 	});
 };
 
-exports.destroy = function(article, cb){
-	bd.delete('articles', { id: article.id }, function(err, affectedRows) {
+exports.destroy = function(id, cb){
+	bd.delete('articles', { id: id }, function(err, affectedRows) {
     cb(err, affectedRows);
 	});
 };

@@ -56,9 +56,15 @@ exports.createRoutes = function(middlewares) {
   middlewares.unshift(function(req, res, next) {
 
     prepareParams(req, res);
+
     res.send = function(err, data) {}
     routes.forEach(function(route){
-      if ( (route.url == req._parsedUrl.pathname) && (route.method == req.method) ) {
+      
+      var reqUrlSplit = req._parsedUrl.pathname.split('/');
+      var routeSplit = route.url.split('/');
+      // console.log(reqUrlSplit);
+
+      if ( ( (routeSplit[1]+routeSplit[2]) == (reqUrlSplit[1] + reqUrlSplit[2]) ) && (route.method == req.method) ) {
         route.callback(req, res);
       }else{
 

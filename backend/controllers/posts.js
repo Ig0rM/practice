@@ -33,9 +33,7 @@ exports.create = function(req, res){
 	req.on('end', function() {
 	 //	article = qs.parse(data);
 	 	article = JSON.parse(data);
-
-
-	    
+   
 
 		Posts.create(article, function(err, posts){
 			//res.send(err, posts)
@@ -59,10 +57,10 @@ exports.destroy = function(req, res){
 	});
 
 	req.on('end', function() {
-	 	article = qs.parse(data);
+	 	// article = qs.parse(data);
+	 	id = JSON.parse(data);
 
-
-		Posts.destroy(article, function(err, posts){
+		Posts.destroy(id, function(err, posts){
 			//res.send(err, posts)
 			if (err) {
 				res.statusCode = 500;
@@ -86,7 +84,7 @@ exports.update = function(req, res){
 		// article = qs.parse(data);
 
 		article = JSON.parse(data);
-		console.log(article);
+		// console.log(article);
 		Posts.update(article, function(err, posts){
 			//res.send(err, posts)
 			if (err) {
