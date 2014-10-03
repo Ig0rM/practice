@@ -14,13 +14,13 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css"/>
     
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="vendor/jquery-ui.min.js"></script>
-    <script src="vendor/bootstrap.min.js"></script>
-    <script src="vendor/underscore.js"></script>
-    <script src="vendor/backbone.js"></script>
-    <script src="vendor/url.min.js"></script>
-    <script src="vendor/typeahead.bundle.min.js"></script>
+    <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <!-- // <script src="vendor/jquery-ui.min.js"></script> -->
+    <!-- // <script src="vendor/bootstrap.min.js"></script> -->
+    <!-- // <script src="vendor/underscore.js"></script> -->
+    <!-- // <script src="vendor/backbone.js"></script> -->
+    <!-- // <script src="vendor/url.min.js"></script> -->
+    <!-- // <script src="vendor/typeahead.bundle.min.js"></script> -->
 
     <script data-main="js/index" src="vendor/require.js"></script>
 
@@ -28,17 +28,7 @@
 
   <body>
 
-    <div class="col-md-2 col-md-offset-5 notification-success">
-      <div class="alert alert-success" role="alert">
-        <!-- some text -->
-      </div>
-    </div>
-
-    <div class="col-md-2 col-md-offset-5 notification-danger">
-      <div class="alert alert-danger" role="alert">
-        <!-- some text -->
-      </div>
-    </div>
+    
 
     <div class="row" id="header">
 
@@ -48,7 +38,7 @@
           <div class="col-md-3 col-md-offset-2" id="logo">
             <div id="siteTitle">
               <h1><a>Lorem ipsum</a></h1>
-              <p>Lorem ipsum, <%= username %>, dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Lorem ipsum,, dolor sit amet, consectetur adipiscing elit.</p>
             </div>
           </div>
 
@@ -117,6 +107,18 @@
     <div class="row" id="main">
 
         <div id="content" class="col-md-12">
+
+          <div class="col-md-2 col-md-offset-5 notification-success">
+            <div class="alert alert-success" role="alert">
+              <!-- some text -->
+            </div>
+          </div>
+
+          <div class="col-md-2 col-md-offset-5 notification-danger">
+            <div class="alert alert-danger" role="alert">
+              <!-- some text -->
+            </div>
+          </div>
 
           <!-- themes -->
                 <script type="text/template" id="theme1Content">
@@ -187,7 +189,7 @@
               <div class="col-md-7 col-md-offset-5" id="showOrCreateBlock">
                 <div id="contentTitle"></div>
                 <div class="panel-group" id="accordion">
-                  <script type="text/template" id="articlesShow">
+                  <script type="text/template" class="articlesShow" id="articlesShow-<%= id %>">
                     <div class="panel panel-primary" id="panel-<%= id %>">
                     
                           <div class="panel-heading">

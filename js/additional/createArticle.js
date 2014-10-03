@@ -1,5 +1,7 @@
 define(function () {
-
+// var Article = Backbone.Model.extend({
+// 		    urlRoot: '/api/posts'
+// 		  });
 	return {
 		//article creation
 		create: function(config){
