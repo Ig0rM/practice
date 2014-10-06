@@ -1,17 +1,17 @@
 define([
     'Backbone',
-    'text!appTemplates/footer.html'
-  ], function (Backbone, footerTemplate) {
+    'text!appTemplates/contacts.html'
+  ], function (Backbone, contactsTemplate) {
 	//Footer view
-  Footer = Backbone.View.extend({
-    siteFooter: $("#siteFooter"),
+  Contacts = Backbone.View.extend({
+
 
     initialize: function(){
       this.render();
     },
 
     render: function(){
-      var template = footerTemplate;
+      var template = contactsTemplate;
       var compiledTemplate = _.template( template );
       this.$el.append( compiledTemplate );
 
@@ -20,9 +20,13 @@ define([
       // this.siteFooter.append(template);
       
       return this;
+    },
+
+    removeAll: function() {
+      this.$el.empty();
     }
   });
 
-	return Footer;
+	return Contacts;
 
 });

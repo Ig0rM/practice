@@ -12,7 +12,8 @@ require.config({
     typeahead: 'typeahead.bundle.min',
     appModels: '../js/Models',
     appViews: '../js/Views',
-    appCollections: '../js/Collections'
+    appCollections: '../js/Collections',
+    appTemplates: '../templates'
   },
 
    shim: {

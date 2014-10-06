@@ -30,79 +30,7 @@
 
     
 
-    <div class="row" id="header">
-
-      <script type="text/template" id="siteHeader1">
-        <div class="col-md-12">
-
-          <div class="col-md-3 col-md-offset-2" id="logo">
-            <div id="siteTitle">
-              <h1><a>Lorem ipsum</a></h1>
-              <p>Lorem ipsum,, dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-          </div>
-
-          <div class="col-md-2 col-md-offset-4" id="loginBlock">
-
-            <form class="form-inline" role="form" id="loginForm">
-
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control" type="text" placeholder="Enter login">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="sr-only" for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Remember
-                  </label>
-                </div>
-                <button type="submit" class="btn btn-default">Sign in</button>
-              </div>
-              
-            </form>
-            
-            <span class="glyphicon glyphicon-chevron-up" id="arrowLogin"></span>
-            <span class="glyphicon glyphicon-chevron-down" id="arrowLogin"></span>
-          </div>
-
-          <div class="col-md-12" id="hmenuAndSearch">
-
-            <nav class="navbar navbar-default" id="hmenu" role="navigation">
-
-              <form class="navbar-form" id="searchForm" role="search" action="#">
-                <div class="form-group">
-                  <input type="text" name="searchField" class="form-control" id="searchField" placeholder="Search" val="">
-                </div>
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-              </form>
-
-              <div class="container">
-                <ul class="nav navbar-nav" >
-                  <li><a href="#main">Home</a></li>
-                  <li><a href="#profile">Profile</a></li>
-                  <li><a href="#contacts">Contacts</a></li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      Themes <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li id="theme1nav">Theme 1</li>
-                      <li id="theme2nav">Theme 2</li>
-                      <li id="theme3nav">Theme 3</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-
-          </div>
-
-        </div>
-      </script>
-    </div>
+    <div class="row" id="header"></div>
 
     <div class="row" id="main">
 
@@ -145,21 +73,7 @@
           <!--  -->
           
           <div id="contactsPage">
-            <script type="text/template" id="contactsContent">
-              <div class="col-md-5 col-md-offset-2" id='contacts'>
-                <img src="../images/earth.png" alt="earth" style="float: left; padding: 15px; width: 28%; height: 28%;" class="img-circle">Lorem ipsum dolor 
-                sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui 
-                vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet port.
-                Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
-
-                <p><address>
-                  <strong>Twitter, Inc.</strong><br>
-                  795 Folsom Ave, Suite 600<br>
-                  San Francisco, CA 94107<br>
-                  <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address></p>
-              </div>
-            </script>
+            
           </div>
 
           <div id="profilePage">
@@ -176,97 +90,26 @@
           </div>
             <div id="leftSide">
               <div id="mainArticleBlock">
-                <script type="text/template" id="mainArticleContent">
-                  <div class="col-md-7 col-md-offset-5">
-                    <div id="mainArticle">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac odio sed sapien commodo dapibus. Cras sed enim nulla. Quisque ultrices congue facilisis. Aliquam cursus a dui vel vestibulum. Morbi pharetra at libero ut sagittis. Proin blandit neque velit, finibus ullamcorper felis rhoncus sit amet. Cras maximus sapien a aliquet porta. Aliquam et facilisis dui. Cras sed orci egestas, vehicula quam sed, ullamcorper turpis. Vestibulum efficitur lorem a nulla tincidunt dapibus.
-
-                      Vestibulum tristique viverra orci et iaculis. Ut consequat dignissim mattis. Nunc vitae scelerisque nunc, vel pharetra justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse non tellus neque. Morbi molestie tellus sit amet justo varius condimentum. Aliquam sit amet est sapien. Aliquam eget sagittis ex. Nulla mauris diam, scelerisque nec urna id, elementum consequat libero. In imperdiet aliquet laoreet. Nam velit est, varius ac ligula sed, posuere faucibus diam. Phasellus vestibulum lobortis lacus et congue. Morbi sed turpis nec mauris dignissim pulvinar ac at magna. Cras dignissim metus eros, non varius magna luctus at. Nunc commodo iaculis molestie.
-                    </div>
-                  </div>
-                </script>
+                
               </div>
               <div class="col-md-7 col-md-offset-5" id="showOrCreateBlock">
                 <div id="contentTitle"></div>
                 <div class="panel-group" id="accordion">
-                  <script type="text/template" class="articlesShow" id="articlesShow-<%= id %>">
-                    <div class="panel panel-primary" id="panel-<%= id %>">
-                    
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-                              <a data-toggle="collapse" data-parent="#accordion" class="accordionTitle" id="articleTitle-<%= id %>" href="#accordion-<%= id %>"><%= title %></a>
-                              <button class='delButton' id='delButton-<%= id %>' value='<%= id %>'>x</button>
-                              <button class='editButton' id='editButton-<%= id %>' value='<%= id %>'>e</button>
-                              <div class="articleDate" id="articleDate-<%= id %>">Date: <%= date %></div>
-                              <span class="badge pull-right">0</span>
-                              <div class="articleComments">Comments</div>
-                            </h4>
-                          </div>
-                      
-                          <div id="accordion-<%= id %>" class="panel-collapse collapse">
-                            <div class="panel-body">
-                              <div class="article">
-                                <div class="articleContent" id="articleContent-<%= id %>"><%= content %></div>
-                                <div class="articleAuthor" id="articleAuthor-<%= id %>"><%= author %></div>
-                              </div>
-                            </div>
-                          </div>
-                    </div>
-                  
-                  </script>
+                 
                 </div>
 
                 <div id="paginationBlock">
-                  <script type="text/template" id="pagination">                  
-                    <ul class="pager">
-                      <li class="previous disabled" id="previousListOfPages"><a href="#">&larr; Older</a></li>
-                      <li class="next" id="nextListOfPages"><a href="#">Newer &rarr;</a></li>
-                    </ul>
-                    <button class='btn btn-default createButton' style="margin: 20px auto" id='createButton' value=''>Create New</button>
-                  </script>
                 </div>
 
 
                 <div id="addOrEditArticleBlock">
-                  <script type="text/template" id="addOrEditArticle">
-                      <div id="addOrEditArticleFormTitle">Add new article</div>
-                      <form role="form">
-                        <div class="form-group">
-                          <label for="inputTitle">Article title</label>
-                          <input type="text" class="form-control" id="inputTitle" placeholder="Enter title">
-                        </div>
-                        <div class="form-group">
-                          <label for="inputText">Article content</label>
-                          <textarea class="form-control" id="inputText" placeholder="Enter text" style="resize:none" rows="11"></textarea>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputAuthor">Author name</label>
-                          <input type="text" class="form-control" id="inputAuthor" placeholder="Enter author">
-                        </div>
-                        <button type="submit" class="btn btn-default" id="addSubmit">Add new</button>
-                      </form>
-                  </script>
+
                 </div>
 
               </div>
             </div>
             <div id="rightSide">
-              <script type="text/template" id="articlesNavigationBlock">
-                <div class="col-md-10 col-md-offset-0">
-                  <div id="articlesNavigation">
-                    <div id="dateList">
-                      <ul class="list-unstyled">
-                        <li><a>Aug, 2014</a></li>
-                        <li><a>Jun, 2014</a></li>
-                        <li><a>Jul, 2014</a></li>
-                        <li><a>May, 2014</a></li>
-                        <li><a>Sep, 2014</a></li>
-                        <li><a>Oct, 2014</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </script>
+              
             </div>
 
         </div>
@@ -275,19 +118,6 @@
 
     <div class="row" id="footer">
       <div class="col-md-12" id="siteFooter">
-
-        <script type="text/template" id="siteFooter1">
-          <nav class="navbar navbar-default" id="fmenu" role="navigation">
-            <div class="container" id="fnav">
-              <ul class="nav navbar-nav" >
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Author</a></li>
-                <li><a href="#">RSS</a></li>
-              </ul>
-            </div>
-          </nav>
-        </script>
-
       </div>
     </div>
 

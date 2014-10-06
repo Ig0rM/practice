@@ -1,4 +1,7 @@
-define(['Backbone'], function () {
+define([
+    'Backbone',
+    'text!appTemplates/header.html'
+  ], function (Backbone, headerTemplate) {
   //Header view
   Header = Backbone.View.extend({
     siteHeader: $("#header"),
@@ -69,9 +72,14 @@ define(['Backbone'], function () {
     },
 
     render: function(){
-      // alert($("#siteHeader1").length);
-      var template = _.template( $("#siteHeader1").html());
-      this.siteHeader.html( template() );
+      var template = headerTemplate;
+      // console.log(headerTemplate);
+      // console.log(this.$el.find("#siteHeader1"));
+       // this.$el.find("#siteHeader1");
+      var compiledTemplate = _.template( template );
+      this.$el.append( compiledTemplate );
+      // this.siteHeader.html( _.template( template ) );
+      // this.siteHeader.append(template);
       return this;
     }
   });

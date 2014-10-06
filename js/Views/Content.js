@@ -1,18 +1,33 @@
-define(['Backbone'], function () {
+define([
+    'Backbone',
+    'text!appTemplates/rightSide.html',
+    'text!appTemplates/createForm.html',
+    'text!appTemplates/pagination.html',
+    'text!appTemplates/mainArticle.html',
+    'text!appTemplates/accordionPanel.html'
+  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate) {
 
 	Content = Backbone.View.extend({
 
     initialize: function(){
+
       this.render();
-      this.startArticles();
+      var posts = this.checkUrl();
       var self = this;
       var nextList = this.$el.find('#nextListOfPages');
       var prevList = this.$el.find('#prevListOfPages');
       var creationForm = this.$el.find('#addOrEditArticleBlock');
       var submitCreation = this.$el.find('#createButton');
-      
+
+      // alert("stop");
+      // console.log(posts);
+      // if(posts.page == 0){
+        // this.startArticles();
+      // };
+
       nextList.on('click', function(config){
         if(!$(this).hasClass('disabled')){
+         
           self.nextArticles();
         }
       });
@@ -35,6 +50,7 @@ define(['Backbone'], function () {
           creationForm.slideDown(500);
         }
       });
+
     },
 
     createArticle: function(Model){
@@ -86,6 +102,7 @@ define(['Backbone'], function () {
           if (!creationForm.is(':visible')){
               var id = $(this).val();
             	var successNote = self.$el.find('.notification-success');
+
               var oldTitle = self.$el.find('#articleTitle-' + id);
               var oldText = self.$el.find('#articleContent-' + id);
               var oldAuthor = self.$el.find('#articleAuthor-' + id);
@@ -206,9 +223,14 @@ define(['Backbone'], function () {
     },
 
     showArticles: function(posts){
-    	var accordion = this.$el.find("#accordion");
-    	var panel = this.$el.find(".articlesShow");
-    	var panelTmp = _.template( this.$el.find(".articlesShow").html() );
+      var accordion = this.$el.find("#accordion");
+      var template = accordionPanelTemplate;
+      var compiledTemplate = _.template( template );
+      // this.$el.append( compiledTemplate );
+
+    	// var accordion = this.$el.find("#accordion");
+    	// var panel = this.$el.find(".articlesShow");
+    	// var panelTmp = _.template( this.$el.find(".articlesShow").html() );
       var self = this;
 
       this.collection.fetch({
@@ -229,11 +251,12 @@ define(['Backbone'], function () {
 		            }
 
 		           	accordion.html('');
-		           	accordion.append(panel);
+		           	
 
-		            for (var i = list.length-j; i >= 0; i--) {
-		            	accordion.html(accordion.html() + panelTmp(list[i]));
+		            for (var i = list.length - j; i >= 0; i--) {
+		            	accordion.html(accordion.html() + _.template( template ) (list[i]));
 		            }
+
 		            self.addEditButton(self.collection.model);
 		            self.addDelButton(self.collection.model);
 		            return this;
@@ -241,34 +264,43 @@ define(['Backbone'], function () {
 
 			});
 
+      // Backbone.history.navigate("ssss");
       window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
     },
 
     render: function(){
-      var paginationTmp = _.template( this.$el.find("#pagination").html());
-      var mainArticleTmp = _.template( this.$el.find("#mainArticleContent").html());
-      var dateNavTmp = _.template( this.$el.find("#articlesNavigationBlock").html());
-      var creationFormTmp = _.template( this.$el.find("#addOrEditArticle").html());
+      // alert('is using');
+      var compiledTemplate;
 
+      var dateNav = this.$el.find("#rightSide");
+      var dateNavTmp = rightSideTemplate;
+      compiledTemplate = _.template( dateNavTmp );
+      dateNav.append( compiledTemplate );
 
       var creationForm = this.$el.find("#addOrEditArticleBlock");
-      var mainArticle = this.$el.find("#mainArticleBlock");
-      var pagination = this.$el.find("#paginationBlock");
-      var dateNav = this.$el.find("#rightSide");
+      var creationFormTmp = createFormTemplate;
+      compiledTemplate = _.template( creationFormTmp );
+      creationForm.append( compiledTemplate );
 
-      mainArticle.html( mainArticleTmp() );
-     	pagination.html( paginationTmp() );
-      dateNav.html( dateNavTmp() );
-      creationForm.html( creationFormTmp() );
+      var pagination = this.$el.find("#paginationBlock");
+      var paginationTmp = paginationTemplate;
+      compiledTemplate = _.template( paginationTmp );
+      pagination.append( compiledTemplate );
+
+      var mainArticle = this.$el.find("#mainArticleBlock");
+      var mainArticleTmp = mainArticleTemplate;
+      compiledTemplate = _.template( mainArticleTmp );
+      mainArticle.append( compiledTemplate );
 
       return this;
     },
 
-    remove: function() {
-      this.siteContent.remove();
-      this.paginationBlock.remove();
-      this.mainArticleBlock.remove();
-      this.rightSideBlock.remove();
+    removeAll: function() {
+      this.$el.find("#accordion").empty();
+      this.$el.find("#addOrEditArticleBlock").empty();
+      this.$el.find("#rightSide").empty();
+      this.$el.find("#paginationBlock").empty();
+      this.$el.find("#mainArticleBlock").empty();
     }
 
   });
