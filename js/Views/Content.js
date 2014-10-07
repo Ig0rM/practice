@@ -4,55 +4,20 @@ define([
     'text!appTemplates/createForm.html',
     'text!appTemplates/pagination.html',
     'text!appTemplates/mainArticle.html',
-    'text!appTemplates/accordionPanel.html'
-  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate) {
+    'text!appTemplates/accordionPanel.html',
+    'text!appTemplates/theme1.html',
+    'text!appTemplates/theme2.html'
+  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate, theme1Template, theme2Template) {
 
+  var DEFAULT_LIMIT = 4;
+
+  //Content view
 	Content = Backbone.View.extend({
 
     initialize: function(){
-
-      this.render();
-      var posts = this.checkUrl();
-      var self = this;
-      var nextList = this.$el.find('#nextListOfPages');
-      var prevList = this.$el.find('#prevListOfPages');
-      var creationForm = this.$el.find('#addOrEditArticleBlock');
-      var submitCreation = this.$el.find('#createButton');
-
-      // alert("stop");
-      // console.log(posts);
-      // if(posts.page == 0){
-        // this.startArticles();
-      // };
-
-      nextList.on('click', function(config){
-        if(!$(this).hasClass('disabled')){
-         
-          self.nextArticles();
-        }
-      });
-
-      prevList.on('click', function(config){
-        if(!$(this).hasClass('disabled')){
-          self.prevArticles();
-        }
-      });
-
-      creationForm.on('submit', function(){
-        self.createArticle(self.collection.model);
-        return false;
-      });
-
-      submitCreation.on('click', function(){
-        if (creationForm.is(':visible')){
-          creationForm.slideUp(500);
-        }else{
-          creationForm.slideDown(500);
-        }
-      });
-
     },
 
+    //when creates new article
     createArticle: function(Model){
       var model = new Model();
       var title = this.$el.find('#inputTitle').val();
@@ -73,19 +38,7 @@ define([
       successNote.addClass('center');
      	successNote.find('.alert-success').text('Article was successfully created!');
       successNote.fadeIn(1000).delay(1000).fadeOut(1000);
-
       creationForm.slideUp(500);
-    },
-
-    checkUrl: function(){
-      if(url('#limit') && url('#page')){
-        return {
-          limit: parseInt(url('#limit')),
-          page: parseInt(url('#page'))
-        };
-      }else{
-        return{limit: 4, page: 0};
-      }
     },
 
     addEditButton: function(Model){
@@ -189,10 +142,8 @@ define([
                       data: id,
 
                       success: function () {
-                          // alert('Destroyed');
                       },
                       error: function () {
-                          // alert('Destroyed (error)');
                       }
                     });
 
@@ -205,32 +156,25 @@ define([
       }); //deletion
     },
 
-    startArticles: function(){
-      var posts = this.checkUrl();
-      this.showArticles(posts);
-    },
-
-    nextArticles: function(){
-      var posts = this.checkUrl();
-      posts.page += ( posts.limit-1 );
-      this.showArticles(posts);
-    },
-
-    prevArticles: function(){
-      var posts = checkUrl();
-      posts.page -= ( posts.limit-1 );
+    startArticles: function(lim, pg){
+      var posts = {
+        limit: lim || 4,
+        page: pg || 0
+      };
       this.showArticles(posts);
     },
 
     showArticles: function(posts){
+      var nextButton = this.$el.find("#nextListOfPages");
+      var prevButton = this.$el.find("#previousListOfPages");
+      
       var accordion = this.$el.find("#accordion");
       var template = accordionPanelTemplate;
       var compiledTemplate = _.template( template );
-      // this.$el.append( compiledTemplate );
 
-    	// var accordion = this.$el.find("#accordion");
-    	// var panel = this.$el.find(".articlesShow");
-    	// var panelTmp = _.template( this.$el.find(".articlesShow").html() );
+      nextButton.val(posts.page);
+      prevButton.val(posts.page);
+
       var self = this;
 
       this.collection.fetch({
@@ -238,22 +182,24 @@ define([
 						      	
 						success: function (data) {
 								var list = data.toJSON();
-								var prevList = self.$el.find('#previousListOfPages');
-								var nextList;
-
-								var j = 2;
+								
 		            if(list.length < 4){
-		              j = 1;
-		            }
+		              var j = 1;
+                  nextButton.addClass("disabled");
+		            }else{
+                  var j = 2;
+                  nextButton.removeClass("disabled");
+                }
 
 		            if(posts.page == 0){
-	              	prevList.addClass("disabled");
-		            }
+	              	prevButton.addClass("disabled");
+		            }else{
+                  prevButton.removeClass("disabled");
+                }
 
 		           	accordion.html('');
 		           	
-
-		            for (var i = list.length - j; i >= 0; i--) {
+		            for (var i = 0; i <= (list.length - j); i++) {
 		            	accordion.html(accordion.html() + _.template( template ) (list[i]));
 		            }
 
@@ -264,12 +210,9 @@ define([
 
 			});
 
-      // Backbone.history.navigate("ssss");
-      window.location.hash = "limit=" + posts.limit + "&page=" + posts.page;
     },
 
     render: function(){
-      // alert('is using');
       var compiledTemplate;
 
       var dateNav = this.$el.find("#rightSide");
@@ -286,11 +229,71 @@ define([
       var paginationTmp = paginationTemplate;
       compiledTemplate = _.template( paginationTmp );
       pagination.append( compiledTemplate );
+      var paginationNext = pagination.find("#nextListOfPages").val(0);
+      var paginationPrev = pagination.find("#previousListOfPages").val(0);
+
 
       var mainArticle = this.$el.find("#mainArticleBlock");
       var mainArticleTmp = mainArticleTemplate;
       compiledTemplate = _.template( mainArticleTmp );
       mainArticle.append( compiledTemplate );
+
+
+      var self = this;
+      var nextButton = this.$el.find('#nextListOfPages');
+      var prevButton = this.$el.find('#previousListOfPages');
+      var creationForm = this.$el.find('#addOrEditArticleBlock');
+      var submitCreation = this.$el.find('#createButton');
+
+
+      var theme1 = $("#header").find("#theme1nav");
+      var theme2 = $("#header").find("#theme2nav");
+
+      theme1.on('click', function(){
+
+        var theme1Tmp = theme1Template;
+        compiledTemplate = _.template( theme1Tmp );
+        mainArticle.empty();
+        mainArticle.append( compiledTemplate );
+      });
+
+      theme2.on('click', function(){
+        var theme2Tmp = theme2Template;
+        compiledTemplate = _.template( theme2Tmp );
+        mainArticle.empty();
+        mainArticle.append( compiledTemplate );
+      });
+
+      nextButton.on('click', function(config){
+        if(!$(this).hasClass('disabled')){
+          var page = parseInt($(this).val());
+          page += ( DEFAULT_LIMIT-1 );
+          $(this).val(page);
+          location.hash = "limit/" + DEFAULT_LIMIT + "/page/" + page;
+        }
+      });
+
+      prevButton.on('click', function(config){
+        if(!$(this).hasClass('disabled')){
+            var page = parseInt($(this).val());
+            page -= ( DEFAULT_LIMIT-1 );
+            $(this).val(page);
+            location.hash = "limit/" + DEFAULT_LIMIT + "/page/" + page;
+        }
+      });
+
+      creationForm.off("submit").on('submit', function(){
+        self.createArticle(self.collection.model);
+        return false;
+      });
+
+      submitCreation.on('click', function(){
+        if (creationForm.is(':visible')){
+          creationForm.slideUp(500);
+        }else{
+          creationForm.slideDown(500);
+        }
+      });
 
       return this;
     },

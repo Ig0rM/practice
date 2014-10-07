@@ -16,14 +16,13 @@ define([
 	    routes: {
 		      "": "main",
 		      "main": "main",
-		      "mainNext": "main",
+		      "limit/:lim/page/:pg": "showArticles",
 		      "profile": "profile",
 		      "contacts": "contacts",
 		      "error": "error"
 		    },
 
 		    main: function () {
-		    	//глючит при повторном нажатии
 		    	var profile = new Profile({
 		        el: $("#profilePage")
 		      });
@@ -42,15 +41,28 @@ define([
 		        el: $("#content"),
 		        collection: articles
 		      });
-
+		      content.removeAll();
+		      content.render();
 		      content.startArticles();
 
-		      
-		    },
-		    mainNext: function () {
 
 		      
 		    },
+
+		    showArticles: function(lim, pg){
+		    	var articles = new Articles();
+
+					var content = new Content({
+		        el: $("#content"),
+		        collection: articles
+		      });
+
+					content.removeAll();
+					content.render();
+
+					content.startArticles(lim, pg);
+		    },
+
 
 		    contacts: function(){
 
@@ -110,15 +122,6 @@ define([
 		      	el: $("#footer")
 		      });
 
-		  var newRoute = function() {
-
-		  };
-
-			// router.on('route:main', function () {
-       	// alert("on");
-       	
-
-    	// });
 
 		Backbone.history.start();
 	};

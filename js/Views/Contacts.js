@@ -2,7 +2,8 @@ define([
     'Backbone',
     'text!appTemplates/contacts.html'
   ], function (Backbone, contactsTemplate) {
-	//Footer view
+	
+  //Contacts view
   Contacts = Backbone.View.extend({
 
 

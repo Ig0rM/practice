@@ -16,10 +16,10 @@ require.config({
     appTemplates: '../templates'
   },
 
-   shim: {
+  shim: {
         'underscore': {
             exports: '_'
-        },    
+        },
         'backbone': {
             deps: ['underscore', 'jquery', 'url'],
             exports: 'Backbone'
