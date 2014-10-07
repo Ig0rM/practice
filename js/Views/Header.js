@@ -70,10 +70,12 @@ define([
     },
 
     render: function(){
-      var template = headerTemplate;
-      var compiledTemplate = _.template( template );
-      this.$el.append( compiledTemplate );
+      this.$el.append( _.template( headerTemplate ) );
       return this;
+    },
+    
+    removeAll: function() {
+      this.$el.empty();
     }
   });
 

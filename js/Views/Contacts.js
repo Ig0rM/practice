@@ -6,20 +6,12 @@ define([
   //Contacts view
   Contacts = Backbone.View.extend({
 
-
     initialize: function(){
       this.render();
     },
 
     render: function(){
-      var template = contactsTemplate;
-      var compiledTemplate = _.template( template );
-      this.$el.append( compiledTemplate );
-
-      // var template = this.$el.find("#siteFooter1");
-      // this.siteFooter.html( _.template( template.html() )() );
-      // this.siteFooter.append(template);
-      
+      this.$el.append( _.template( contactsTemplate ) );
       return this;
     },
 

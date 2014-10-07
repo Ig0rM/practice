@@ -80,22 +80,18 @@ define([
               //when submited
               creationForm.on('submit', function(){
 
-
               model.set({
                 id: id,
                 title: newTitle.val(),
                 author: newAuthor.val(),
                 text: newText.val()
               });
-
-              
               model.save();
 
               //show changes
               oldTitle.text(model.get('title'));
               oldText.text(model.get('text'));
               oldAuthor.text(model.get('author'));
-
 
               successNote.addClass('center');
               successNote.find('.alert-success').text('Article was successfully edited!');
@@ -164,6 +160,7 @@ define([
       this.showArticles(posts);
     },
 
+    //show panels of articles
     showArticles: function(posts){
       var nextButton = this.$el.find("#nextListOfPages");
       var prevButton = this.$el.find("#previousListOfPages");
@@ -213,57 +210,41 @@ define([
     },
 
     render: function(){
-      var compiledTemplate;
 
       var dateNav = this.$el.find("#rightSide");
-      var dateNavTmp = rightSideTemplate;
-      compiledTemplate = _.template( dateNavTmp );
-      dateNav.append( compiledTemplate );
-
       var creationForm = this.$el.find("#addOrEditArticleBlock");
-      var creationFormTmp = createFormTemplate;
-      compiledTemplate = _.template( creationFormTmp );
-      creationForm.append( compiledTemplate );
-
       var pagination = this.$el.find("#paginationBlock");
-      var paginationTmp = paginationTemplate;
-      compiledTemplate = _.template( paginationTmp );
-      pagination.append( compiledTemplate );
-      var paginationNext = pagination.find("#nextListOfPages").val(0);
-      var paginationPrev = pagination.find("#previousListOfPages").val(0);
-
-
       var mainArticle = this.$el.find("#mainArticleBlock");
-      var mainArticleTmp = mainArticleTemplate;
-      compiledTemplate = _.template( mainArticleTmp );
-      mainArticle.append( compiledTemplate );
-
-
-      var self = this;
+ 
+      dateNav.append( _.template( rightSideTemplate ) );
+      creationForm.append( _.template( createFormTemplate ) );
+      pagination.append( _.template( paginationTemplate ) );
+      mainArticle.append( _.template( mainArticleTemplate ) );
+      
       var nextButton = this.$el.find('#nextListOfPages');
       var prevButton = this.$el.find('#previousListOfPages');
       var creationForm = this.$el.find('#addOrEditArticleBlock');
-      var submitCreation = this.$el.find('#createButton');
-
+      var showCreationFormButton = this.$el.find('#createButton');
 
       var theme1 = $("#header").find("#theme1nav");
       var theme2 = $("#header").find("#theme2nav");
+      
+      var self = this;
+      nextButton.val(0);
+      prevButton.val(0);
 
+      //then chose dropdown menu theme
       theme1.on('click', function(){
-
-        var theme1Tmp = theme1Template;
-        compiledTemplate = _.template( theme1Tmp );
         mainArticle.empty();
-        mainArticle.append( compiledTemplate );
+        mainArticle.append( _.template( theme1Template ) );
       });
 
       theme2.on('click', function(){
-        var theme2Tmp = theme2Template;
-        compiledTemplate = _.template( theme2Tmp );
         mainArticle.empty();
-        mainArticle.append( compiledTemplate );
+        mainArticle.append( _.template( theme2Template ) );
       });
 
+      //when click next/prev on pagination button
       nextButton.on('click', function(config){
         if(!$(this).hasClass('disabled')){
           var page = parseInt($(this).val());
@@ -282,12 +263,20 @@ define([
         }
       });
 
+      //submitting creation form
       creationForm.off("submit").on('submit', function(){
         self.createArticle(self.collection.model);
+
+        if (creationForm.is(':visible')){
+          creationForm.slideUp(500);
+        }else{
+          creationForm.slideDown(500);
+        }
         return false;
       });
 
-      submitCreation.on('click', function(){
+      //show creation form
+      showCreationFormButton.on('click', function(){
         if (creationForm.is(':visible')){
           creationForm.slideUp(500);
         }else{
@@ -298,6 +287,7 @@ define([
       return this;
     },
 
+    //remove all elements of content
     removeAll: function() {
       this.$el.find("#accordion").empty();
       this.$el.find("#addOrEditArticleBlock").empty();

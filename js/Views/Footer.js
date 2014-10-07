@@ -11,11 +11,12 @@ define([
     },
 
     render: function(){
-      var template = footerTemplate;
-      var compiledTemplate = _.template( template );
-      
-      this.$el.append( compiledTemplate );
+      this.$el.append( _.template( footerTemplate ) );
       return this;
+    },
+
+    removeAll: function() {
+      this.$el.empty();
     }
   });
 

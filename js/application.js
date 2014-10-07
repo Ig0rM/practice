@@ -3,8 +3,6 @@ define([
   ], function (Router) {
   
   var Application = function(){
-      
-
       Router.init();
   };
 
