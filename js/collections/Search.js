@@ -3,9 +3,9 @@ define([
 		"appModels/Article"
 	], function (Backbone, Article) {
 
-	var Articles = Backbone.Collection.extend({
+	var Search = Backbone.Collection.extend({
 		model: Article,
-	  url: '/api/posts'
+	  url: '/search'
 
 	/*  search: function(word){
 		   $.ajax({
@@ -34,6 +34,6 @@ define([
 	 	}*/
 	});
 
-	return Articles;
+	return Search;
 
 });

@@ -15,37 +15,34 @@ define([
     initialize: function(){
     },
 
-    //searck by text
+    //search by text
     findBySearch: function(word){
       var self = this;
       var nextButton = this.$el.find("#nextListOfPages");
       var prevButton = this.$el.find("#previousListOfPages");
+      var accordion = this.$el.find("#accordion");
+
       nextButton.val(0);
       prevButton.val(0);
 
-      $.ajax({
-        url:"/search", 
-        type:'GET',
-        data: {word: word},
-        success:function(result){
 
-          var list = JSON.parse(result);
-          var accordion = self.$el.find("#accordion");
-          var template = accordionPanelTemplate;
-          var compiledTemplate = _.template( template );
+      this.collection.fetch({
+            data: {word: word},
+                    
+            success: function (data) {
+              var list = data.toJSON();
 
-          
-          accordion.html('');
-                
-          for (var i = 0; i <= (list.length - 1); i++) {
-            accordion.html(accordion.html() + _.template( template ) (list[i]));
-          }
+              accordion.empty();
+                    
+              _.each(list, function(article){
+                  accordion.html(accordion.html() + _.template( accordionPanelTemplate ) (article))
+              });
 
-          self.addEditButton(self.collection.model);
-          self.addDelButton(self.collection.model);
-                
-        }
+              self.addEditButton(self.collection.model);
+              self.addDelButton(self.collection.model);
+            }
       });
+
     },
 
     //when creates new article
@@ -77,68 +74,66 @@ define([
     	var self = this;
     	var button = this.$el.find('.editButton');
       //editing button click event
-      button.each(function(){
-        $(this).on('click', function(){
-        	var creationForm = self.$el.find('#addOrEditArticleBlock');
-        	var creationFormTitle = self.$el.find('#addOrEditArticleFormTitle');
-        	var submitButton = self.$el.find('#addSubmit');
-          //check if the form is visible
-          if (!creationForm.is(':visible')){
-              var id = $(this).val();
-            	var successNote = self.$el.find('.notification-success');
+      button.on('click', function(){
+      	var creationForm = self.$el.find('#addOrEditArticleBlock');
+      	var creationFormTitle = self.$el.find('#addOrEditArticleFormTitle');
+      	var submitButton = self.$el.find('#addSubmit');
+        //check if the form is visible
+        if (!creationForm.is(':visible')){
+            var id = $(this).val();
+          	var successNote = self.$el.find('.notification-success');
 
-              var oldTitle = self.$el.find('#articleTitle-' + id);
-              var oldText = self.$el.find('#articleContent-' + id);
-              var oldAuthor = self.$el.find('#articleAuthor-' + id);
+            var oldTitle = self.$el.find('#articleTitle-' + id);
+            var oldText = self.$el.find('#articleContent-' + id);
+            var oldAuthor = self.$el.find('#articleAuthor-' + id);
 
-              var newTitle = self.$el.find('#inputTitle');
-              var newText = self.$el.find('#inputText');
-              var newAuthor = self.$el.find('#inputAuthor');
+            var newTitle = self.$el.find('#inputTitle');
+            var newText = self.$el.find('#inputText');
+            var newAuthor = self.$el.find('#inputAuthor');
 
-              //sliding edit form down
-              creationForm.slideDown(500);
-              //change title from add new article to edit article and submit button text to confirm
-              creationFormTitle.text('Edit article');
-             	submitButton.text('Confirm');
+            //sliding edit form down
+            creationForm.slideDown(500);
+            //change title from add new article to edit article and submit button text to confirm
+            creationFormTitle.text('Edit article');
+           	submitButton.text('Confirm');
 
-              //inserting previous content of article to the edition form
-              newTitle.val(oldTitle.text());
-              newText.val(oldText.text());
-              newAuthor.val(oldAuthor.text());
-              
+            //inserting previous content of article to the edition form
+            newTitle.val(oldTitle.text());
+            newText.val(oldText.text());
+            newAuthor.val(oldAuthor.text());
+            
 
-              creationForm.off('submit');
-              //when submited
-              creationForm.on('submit', function(){
+            creationForm.off('submit');
+            //when submited
+            creationForm.on('submit', function(){
 
-              model.set({
-                id: id,
-                title: newTitle.val(),
-                author: newAuthor.val(),
-                text: newText.val()
-              });
-              model.save();
+            model.set({
+              id: id,
+              title: newTitle.val(),
+              author: newAuthor.val(),
+              text: newText.val()
+            });
+            model.save();
 
-              //show changes
-              oldTitle.text(model.get('title'));
-              oldText.text(model.get('text'));
-              oldAuthor.text(model.get('author'));
+            //show changes
+            oldTitle.text(model.get('title'));
+            oldText.text(model.get('text'));
+            oldAuthor.text(model.get('author'));
 
-              successNote.addClass('center');
-              successNote.find('.alert-success').text('Article was successfully edited!');
-              successNote.fadeIn(1000).delay(1000).fadeOut(1000);
+            successNote.addClass('center');
+            successNote.find('.alert-success').text('Article was successfully edited!');
+            successNote.fadeIn(1000).delay(1000).fadeOut(1000);
 
-              //slide up when edited
-              creationForm.slideUp(500);
+            //slide up when edited
+            creationForm.slideUp(500);
 
-              return false;
-            }); //when submited
-          }else{
-              //sliding edit form up
-              creationForm.slideUp(500);
-          }
-        });
-      }); //editing
+            return false;
+          }); //when submited
+        }else{
+            //sliding edit form up
+            creationForm.slideUp(500);
+        }
+      });//editing
     },
 
     addDelButton: function(Model){
@@ -146,41 +141,39 @@ define([
     	var self = this;
     	var button = this.$el.find('.delButton');
       //deletion button click event
-      button.each(function(){
-        $(this).on('click', function(){
-            var id = $(this).val();
-            var panel = self.$el.find('#panel-' + id);
-            var dangerNote = self.$el.find('.notification-danger');
-            var successNote = self.$el.find('.notification-success');
-            var creationForm = self.$el.find('#addOrEditArticleBlock');
+      button.on('click', function(){
+          var id = $(this).val();
+          var panel = self.$el.find('#panel-' + id);
+          var dangerNote = self.$el.find('.notification-danger');
+          var successNote = self.$el.find('.notification-success');
+          var creationForm = self.$el.find('#addOrEditArticleBlock');
 
-            //first finish article editing or creation
-            if (creationForm.is(':visible')){
-                dangerNote.addClass('center');
-                dangerNote.find('.alert-danger').text('First finish article editiong');
-                dangerNote.fadeIn(1000).delay(1000).fadeOut(1000);
-            }else{
-                if(confirm("You want to delete this article?")){
-                    panel.fadeOut(500);
+          //first finish article editing or creation
+          if (creationForm.is(':visible')){
+              dangerNote.addClass('center');
+              dangerNote.find('.alert-danger').text('First finish article editiong');
+              dangerNote.fadeIn(1000).delay(1000).fadeOut(1000);
+          }else{
+              if(confirm("You want to delete this article?")){
+                  panel.fadeOut(500);
 
-                    model.set({id: id});
+                  model.set({id: id});
 
-                    model.destroy({
-                      data: id,
+                  model.destroy({
+                    data: id,
 
-                      success: function () {
-                      },
-                      error: function () {
-                      }
-                    });
+                    success: function () {
+                    },
+                    error: function () {
+                    }
+                  });
 
-                    successNote.addClass('center');
-                    successNote.find('.alert-success').text('Article was successfully deleted!');
-                    successNote.fadeIn(1000).delay(1000).fadeOut(1000);
-                }
-            }
-        });
-      }); //deletion
+                  successNote.addClass('center');
+                  successNote.find('.alert-success').text('Article was successfully deleted!');
+                  successNote.fadeIn(1000).delay(1000).fadeOut(1000);
+              }
+          }
+      });//deletion
     },
 
     startArticles: function(lim, pg){
@@ -195,41 +188,36 @@ define([
     showArticles: function(posts){
       var nextButton = this.$el.find("#nextListOfPages");
       var prevButton = this.$el.find("#previousListOfPages");
-      
       var accordion = this.$el.find("#accordion");
-      var template = accordionPanelTemplate;
-      var compiledTemplate = _.template( template );
+      var self = this;
 
       nextButton.val(posts.page);
       prevButton.val(posts.page);
-
-      var self = this;
 
       this.collection.fetch({
 						data: posts,
 						      	
 						success: function (data) {
 								var list = data.toJSON();
-								
+
 		            if(list.length < 4){
-		              var j = 1;
                   nextButton.addClass("disabled");
 		            }else{
-                  var j = 2;
+                  list.pop();
                   nextButton.removeClass("disabled");
                 }
 
-		            if(posts.page == 0){
+		            if(!posts.page == 0){
 	              	prevButton.addClass("disabled");
 		            }else{
                   prevButton.removeClass("disabled");
                 }
 
-		           	accordion.html('');
+		           	accordion.empty();
 		           	
-		            for (var i = 0; i <= (list.length - j); i++) {
-		            	accordion.html(accordion.html() + _.template( template ) (list[i]));
-		            }
+                _.each(list, function(article){
+                  accordion.html(accordion.html() + _.template( accordionPanelTemplate ) (article))
+                });
 
 		            self.addEditButton(self.collection.model);
 		            self.addDelButton(self.collection.model);
@@ -263,7 +251,7 @@ define([
       prevButton.val(0);
 
       //when click next/prev on pagination button
-      nextButton.on('click', function(config){
+      nextButton.on('click', function(){
         if(!$(this).hasClass('disabled')){
           var page = parseInt($(this).val());
           page += ( DEFAULT_LIMIT-1 );
@@ -272,7 +260,7 @@ define([
         }
       });
 
-      prevButton.on('click', function(config){
+      prevButton.on('click', function(){
         if(!$(this).hasClass('disabled')){
             var page = parseInt($(this).val());
             page -= ( DEFAULT_LIMIT-1 );

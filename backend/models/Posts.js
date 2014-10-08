@@ -6,7 +6,6 @@ var date;
 
 exports.search = function(word, cb){
 	bd.query('SELECT * FROM articles WHERE content LIKE \'%' + word + '%\'', function(err, results) {
-		console.log(results);
 		cb(err, results);
   });
 };

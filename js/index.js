@@ -5,7 +5,7 @@ require.config({
   paths: {
     jquery: 'jquery-1.11.1.min',
     jquery_ui: 'jquery-ui.min',
-    underscore: 'underscore',
+    underscore: 'underscore-min',
     backbone: 'backbone',
     bootstrap: 'bootstrap.min',
     url: 'url.min',

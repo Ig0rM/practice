@@ -7,8 +7,9 @@ define([
 	    "appViews/Footer",
 	    "appViews/Contacts",
 	    "appViews/Profile",
-	    "appCollections/Articles"
-   	], function (jquery, Backbone, Article, Header, Content, Footer, Contacts, Profile, Articles) {
+	    "appCollections/Articles",
+	    "appCollections/Search"
+   	], function (jquery, Backbone, Article, Header, Content, Footer, Contacts, Profile, Articles, Search) {
 
 	var init = function(){
 
@@ -37,6 +38,7 @@ define([
 		    	contacts.removeAll();
 
 		    	var articles = new Articles();
+		    	var search = new Search();
 
 		      var content = new Content({
 		        el: $("#content"),
@@ -112,11 +114,12 @@ define([
 		    },
 
 		    search: function(word){
+		    	var search = new Search();
 		    	var articles = new Articles();
 
 					var content = new Content({
 		        el: $("#content"),
-		        collection: articles
+		        collection: search
 		      });
 
 					content.removeAll();
