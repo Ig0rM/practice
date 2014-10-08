@@ -4,10 +4,8 @@ define([
     'text!appTemplates/createForm.html',
     'text!appTemplates/pagination.html',
     'text!appTemplates/mainArticle.html',
-    'text!appTemplates/accordionPanel.html',
-    'text!appTemplates/theme1.html',
-    'text!appTemplates/theme2.html'
-  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate, theme1Template, theme2Template) {
+    'text!appTemplates/accordionPanel.html'
+  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate) {
 
   var DEFAULT_LIMIT = 4;
 
@@ -259,23 +257,10 @@ define([
       var creationForm = this.$el.find('#addOrEditArticleBlock');
       var showCreationFormButton = this.$el.find('#createButton');
 
-      var theme1 = $("#header").find("#theme1nav");
-      var theme2 = $("#header").find("#theme2nav");
       
       var self = this;
       nextButton.val(0);
       prevButton.val(0);
-
-      //then chose dropdown menu theme
-      theme1.on('click', function(){
-        mainArticle.empty();
-        mainArticle.append( _.template( theme1Template ) );
-      });
-
-      theme2.on('click', function(){
-        mainArticle.empty();
-        mainArticle.append( _.template( theme2Template ) );
-      });
 
       //when click next/prev on pagination button
       nextButton.on('click', function(config){
