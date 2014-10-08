@@ -17,6 +17,7 @@ define([
 		      "": "main",
 		      "main": "main",
 		      "limit/:lim/page/:pg": "showArticles",
+		      "search/:word": "search",
 		      "profile": "profile",
 		      "contacts": "contacts",
 		      "error": "error"
@@ -108,6 +109,20 @@ define([
 		    	var profile = new Profile({
 		        el: $("#profilePage")
 		      });
+		    },
+
+		    search: function(word){
+		    	var articles = new Articles();
+
+					var content = new Content({
+		        el: $("#content"),
+		        collection: articles
+		      });
+
+					content.removeAll();
+					content.render();
+
+					content.findBySearch(word);
 		    }
 
 		  });

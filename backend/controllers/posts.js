@@ -6,6 +6,19 @@ var DEFAULT_DATE = "";
 
 var article;
 
+exports.search = function(req, res){
+	var word = req.params.word;
+	Posts.search(word, function(err, posts){
+		if (err) {
+			res.statusCode = 500;
+			res.end(JSON.stringify(err));
+		} else {
+			res.statusCode = 200;
+			res.end(JSON.stringify(posts));
+		}
+	});
+
+};
 
 exports.index = function(req, res){
 	var limit = req.params.limit || DEFAULT_LIMIT;

@@ -32,6 +32,11 @@ var routes = [
     url:  '/api/posts/show',
     method: 'GET',
     callback:  posts.show
+  },
+  {
+    url: '/search',
+    method: 'GET',
+    callback: posts.search
   }
 ];
 

@@ -4,6 +4,13 @@ require("date-format-lite");
 var bd = connection.bd();
 var date;
 
+exports.search = function(word, cb){
+	bd.query('SELECT * FROM articles WHERE content LIKE \'%' + word + '%\'', function(err, results) {
+		console.log(results);
+		cb(err, results);
+  });
+};
+
 exports.list = function(limit, page, date, cb){
 	if(date != ''){
 		var where = 'WHERE date > \'' + '24th ' + date + '\' AND date < \'' + '32th ' + date + '\'';
