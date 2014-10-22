@@ -1,57 +1,36 @@
 var connection = require('../connection.js');
-require("date-format-lite");
+var moment = require('moment');
 
-var bd = connection.bd();
-var date;
 
-exports.search = function(word, cb){
-	bd.query('SELECT * FROM articles WHERE content LIKE \'%' + word + '%\'', function(err, results) {
-		cb(err, results);
-  });
+exports.search = function(params, cb){
+  connection.search('articles', params, cb)
 };
 
-exports.list = function(limit, page, date, cb){
-	if(date != ''){
-		var where = 'WHERE date > \'' + '24th ' + date + '\' AND date < \'' + '32th ' + date + '\'';
-	}else{
-		var where = '';
-	}
-	bd.query('SELECT * FROM articles ' + where + ' LIMIT ' + limit + ' OFFSET ' + page, function(err, results) {
-		cb(err, results);
-  });
+exports.list = function(params, cb){
+	connection.index('articles', params, cb);
 };
 
 exports.create = function(article, cb){
-	date = new Date();
+	connection.create('articles', article, cb);
 
-	bd.insert('articles', {
-		title: 		article.title,
-		content: 	article.text,
-		author: 	article.author,
-		date: 		date.format("D'th' MMM, YYYY")
-	}, function(err, results) {
-		cb(err, results);
-	});
 };
 
 exports.destroy = function(id, cb){
-	bd.delete('articles', { id: id }, function(err, affectedRows) {
-    cb(err, affectedRows);
-	});
+	connection.delete('articles', id, cb);
 };
 
 exports.update = function(article, cb){
-	date = new Date();
-
-  bd.update('articles', {
-  	id: 			article.id,
+	var now = new Date();
+	var newArticle = {
+		id: 			article.id,
 		title: 		article.title,
-	  content: 	article.text,
-	  author: 	article.author,
-	  date: 		date.format("D'th' MMM, YYYY")
-  }, function(err, results) {
-		cb(err, results);
-	});
+		content: 	article.text,
+		author: 	article.author,
+		date: 		moment().format("MMM Do YY")
+	};
+
+	connection.update('articles', newArticle, cb);
+
 };
 
 exports.show = function(id, cb){

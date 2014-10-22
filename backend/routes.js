@@ -1,80 +1,108 @@
 var posts = require('./controllers/posts.js');
-var quote = require('./controllers/quote.js');
 var url = require('url');
 
-var routes = [
-  {
-    url:  '/api/posts',
-    method: 'GET',
-    callback:  posts.index
-  },
-  {
-    url:  '/api/posts',
-    method: 'POST',
-    callback:  posts.create
-  },
-  {
-    url:  '/quote',
-    method: 'GET',
-    callback:  quote.index
-  },
-  {
-    url:  '/api/posts',
-    method: 'DELETE',
-    callback:  posts.destroy
-  },
-  {
-    url:  '/api/posts',
-    method: 'PUT',
-    callback:  posts.update
-  },
-  {
-    url:  '/api/posts/show',
-    method: 'GET',
-    callback:  posts.show
-  },
-  {
-    url: '/search',
-    method: 'GET',
-    callback: posts.search
-  }
-];
+exports.createRoutes = function(app, passport){
+  
 
-prepareParams = function(req, res){
-  if (req.method == 'GET'){
-    req.params = url.parse(req._parsedUrl.path, true).query;
-    req.params = req.params || {};
-  }else{
+   app.all(['/api/*', '/search', '/'], isLoggedIn);
 
-    //setting headers
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:9000");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Range, Content-Disposition, Content-Description, accept");
-    res.setHeader("Access-Control-Allow-Methods", "PUT, GET, POST, OPTIONS");
-    res.setHeader("access-control-max-age", 10);
+  app.route('/api/posts')
+    .get(function (req, res, next){
+      req.params = url.parse(req._parsedUrl.path, true).query;
+      req.params = req.params || {};
+      posts.index(req, res);
+      next();
+    })
+    .post(function (req, res, next){
+      posts.create(req, res);
+      next();
+    });
 
-    // res.setHeader("content-length", 0);
-    req.setEncoding('utf8');
-  }
+  app.route('/api/posts/:id')
+    .get(function (req, res, next){
+      req.params = url.parse(req._parsedUrl.path, true).query;
+      req.params = req.params || {};
+      posts.show(req, res);
+      next();
+    })
+    .put(function (req, res, next){
+      posts.update(req, res);
+      next();
+    })
+    .delete(function (req, res, next){
+      posts.destroy(req, res);
+      next();
+    });
+
+  app.route('/search')
+    .get(function (req, res, next){
+      req.params = url.parse(req._parsedUrl.path, true).query;
+      req.params = req.params || {};
+      posts.search(req, res);
+      next();
+    });
+
+
+
+    app.get('/login', function(req, res) {
+
+      // render the page and pass in any flash data if it exists
+      res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    });
+
+  // process the login form
+  app.post('/login', passport.authenticate('local-login', {
+      successRedirect : '/', // redirect to the secure profile section
+      failureRedirect : '/login', // redirect back to the signup page if there is an error
+      failureFlash : true // allow flash messages
+    }));
+
+  // =====================================
+  // SIGNUP ==============================
+  // =====================================
+  // show the signup form
+    app.get('/signup', function(req, res) {
+
+      // render the page and pass in any flash data if it exists
+      res.render('signup.ejs', { message: req.flash('signupMessage') });
+    });
+
+  // process the signup form
+  // app.post('/signup', do all our passport stuff here);
+  app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect : '/profile1', // redirect to the secure profile section
+    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+  }));
+  // =====================================
+  // PROFILE SECTION =====================
+  // =====================================
+  // we will want this protected so you have to be logged in to visit
+  // we will use route middleware to verify this (the isLoggedIn function)
+    app.get('/profile1', isLoggedIn, function(req, res) {
+      res.render('profile.ejs', {
+        user : req.user // get the user out of session and pass to template
+      });
+    });
+
+  // =====================================
+  // LOGOUT ==============================
+  // =====================================
+    app.get('/logout', function(req, res) {
+      req.logout();
+      res.redirect('/');
+    });
+
+    
 }
 
-exports.createRoutes = function(middlewares) {
-  middlewares.unshift(function(req, res, next) {
+function isLoggedIn(req, res, next) {
 
-    prepareParams(req, res);
-
-    res.send = function(err, data) {}
-    routes.forEach(function(route){
-      
-      var reqUrlSplit = req._parsedUrl.pathname.split('/');
-      var routeSplit = route.url.split('/');
-      // console.log(reqUrlSplit);
-
-      if ( ( (routeSplit[1]+routeSplit[2]) == (reqUrlSplit[1] + reqUrlSplit[2]) ) && (route.method == req.method) ) {
-        route.callback(req, res);
-      }else{
-
-      }
-    });
+  // if user is authenticated in the session, carry on 
+  if (req.isAuthenticated()){
     return next();
-  });
-};
+  }
+
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}

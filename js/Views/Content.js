@@ -25,15 +25,14 @@ define([
       nextButton.val(0);
       prevButton.val(0);
 
-
       this.collection.fetch({
             data: {word: word},
-                    
+
             success: function (data) {
               var list = data.toJSON();
 
               accordion.empty();
-                    
+
               _.each(list, function(article){
                   accordion.html(accordion.html() + _.template( accordionPanelTemplate ) (article))
               });
@@ -49,14 +48,13 @@ define([
     createArticle: function(Model){
       var model = new Model();
       var title = this.$el.find('#inputTitle').val();
-      var author = this.$el.find('#inputAuthor').val();
+      // var author = this.$el.find('#inputAuthor').val();
       var text = this.$el.find('#inputText').val();
 			var successNote = this.$el.find('.notification-success');
 			var creationForm = this.$el.find('#addOrEditArticleBlock');
 
       model.set({
         title: title,
-        author: author,
         text: text
       });
 
@@ -73,11 +71,13 @@ define([
     	var model = new Model();
     	var self = this;
     	var button = this.$el.find('.editButton');
+
       //editing button click event
       button.on('click', function(){
       	var creationForm = self.$el.find('#addOrEditArticleBlock');
       	var creationFormTitle = self.$el.find('#addOrEditArticleFormTitle');
       	var submitButton = self.$el.find('#addSubmit');
+        
         //check if the form is visible
         if (!creationForm.is(':visible')){
             var id = $(this).val();
@@ -93,6 +93,7 @@ define([
 
             //sliding edit form down
             creationForm.slideDown(500);
+
             //change title from add new article to edit article and submit button text to confirm
             creationFormTitle.text('Edit article');
            	submitButton.text('Confirm');
@@ -101,7 +102,6 @@ define([
             newTitle.val(oldTitle.text());
             newText.val(oldText.text());
             newAuthor.val(oldAuthor.text());
-            
 
             creationForm.off('submit');
             //when submited
@@ -140,6 +140,7 @@ define([
     	var model = new Model()
     	var self = this;
     	var button = this.$el.find('.delButton');
+
       //deletion button click event
       button.on('click', function(){
           var id = $(this).val();
@@ -161,11 +162,8 @@ define([
 
                   model.destroy({
                     data: id,
-
-                    success: function () {
-                    },
-                    error: function () {
-                    }
+                    success: function () {},
+                    error: function () {}
                   });
 
                   successNote.addClass('center');
@@ -196,25 +194,25 @@ define([
 
       this.collection.fetch({
 						data: posts,
-						      	
+
 						success: function (data) {
 								var list = data.toJSON();
 
-		            if(list.length < 4){
+                if(list.length < 4){
                   nextButton.addClass("disabled");
 		            }else{
                   list.pop();
                   nextButton.removeClass("disabled");
                 }
 
-		            if(!posts.page == 0){
+		            if(posts.page == 0){
 	              	prevButton.addClass("disabled");
 		            }else{
                   prevButton.removeClass("disabled");
                 }
 
 		           	accordion.empty();
-		           	
+
                 _.each(list, function(article){
                   accordion.html(accordion.html() + _.template( accordionPanelTemplate ) (article))
                 });
@@ -222,7 +220,7 @@ define([
 		            self.addEditButton(self.collection.model);
 		            self.addDelButton(self.collection.model);
 		            return this;
-			  		}
+			   		}
 
 			});
 
@@ -234,18 +232,17 @@ define([
       var creationForm = this.$el.find("#addOrEditArticleBlock");
       var pagination = this.$el.find("#paginationBlock");
       var mainArticle = this.$el.find("#mainArticleBlock");
- 
+
       dateNav.append( _.template( rightSideTemplate ) );
       creationForm.append( _.template( createFormTemplate ) );
       pagination.append( _.template( paginationTemplate ) );
       mainArticle.append( _.template( mainArticleTemplate ) );
-      
+
       var nextButton = this.$el.find('#nextListOfPages');
       var prevButton = this.$el.find('#previousListOfPages');
       var creationForm = this.$el.find('#addOrEditArticleBlock');
       var showCreationFormButton = this.$el.find('#createButton');
 
-      
       var self = this;
       nextButton.val(0);
       prevButton.val(0);
@@ -304,7 +301,5 @@ define([
 
   });
 
-
 	return Content;
-
 });

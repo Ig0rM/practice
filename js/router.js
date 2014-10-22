@@ -30,7 +30,6 @@ define([
 		      });
 
 		    	profile.removeAll();
-
 		    	var contacts = new Contacts({
 		        el: $("#contactsPage")
 		      });
@@ -39,22 +38,18 @@ define([
 
 		    	var articles = new Articles();
 		    	var search = new Search();
-
 		      var content = new Content({
 		        el: $("#content"),
 		        collection: articles
 		      });
+
 		      content.removeAll();
 		      content.render();
 		      content.startArticles();
-
-
-		      
 		    },
 
 		    showArticles: function(lim, pg){
 		    	var articles = new Articles();
-
 					var content = new Content({
 		        el: $("#content"),
 		        collection: articles
@@ -62,10 +57,8 @@ define([
 
 					content.removeAll();
 					content.render();
-
 					content.startArticles(lim, pg);
 		    },
-
 
 		    contacts: function(){
 
@@ -75,9 +68,7 @@ define([
 
 		    	profile.removeAll();
 
-
 		    	var articles = new Articles();
-
 		    	var content = new Content({
 		        el: $("#content"),
 		        collection: articles
@@ -92,7 +83,6 @@ define([
 		    },
 
 		    profile: function(){
-
 		    	var contacts = new Contacts({
 		        el: $("#contactsPage")
 		      });
@@ -100,7 +90,6 @@ define([
 		    	contacts.removeAll();
 
 		    	var articles = new Articles();
-
 		    	var content = new Content({
 		        el: $("#content"),
 		        collection: articles
@@ -116,7 +105,6 @@ define([
 		    search: function(word){
 		    	var search = new Search();
 		    	var articles = new Articles();
-
 					var content = new Content({
 		        el: $("#content"),
 		        collection: search
@@ -124,22 +112,18 @@ define([
 
 					content.removeAll();
 					content.render();
-
 					content.findBySearch(word);
 		    }
 
 		  });
 
 			var router = new Router();
-
 			var header = new Header({
 		      	el: $("#header")
 		      });
-
 			var footer = new Footer({
 		      	el: $("#footer")
 		      });
-
 
 		Backbone.history.start();
 	};

@@ -10,6 +10,7 @@ require.config({
     bootstrap: 'bootstrap.min',
     url: 'url.min',
     typeahead: 'typeahead.bundle.min',
+    ejs: 'ejs_production',
     appModels: '../js/Models',
     appViews: '../js/Views',
     appCollections: '../js/Collections',
@@ -45,10 +46,11 @@ require([
     'jquery', 
     'jquery_ui', 
     'typeahead', 
-    'bootstrap', 
+    'bootstrap',
+    'ejs', 
     'Backbone', 
     '../js/application'
-  ], function (url, jquery, jquery_ui, typeahead, bootstrap, Backbone, Application) {
+  ], function (url, jquery, jquery_ui, typeahead, bootstrap, ejs, Backbone, Application) {
     
     $(function() {
       Application.init();
