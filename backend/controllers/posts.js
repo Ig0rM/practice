@@ -17,10 +17,10 @@ exports.search = function(req, res){
 	Posts.search(params, function(err, posts){
 		if (err) {
 			res.statusCode = 500;
-			res.end(JSON.stringify(err));
+			res.send(JSON.stringify(err));
 		} else {
 			res.statusCode = 200;
-			res.end(JSON.stringify(posts));
+			res.send(JSON.stringify(posts));
 		}
 	});
 
@@ -34,13 +34,13 @@ exports.index = function(req, res){
 		author : req.user.local.name || null
 	};
 
-	Posts.list(params, function(err, posts){
+	Posts.list(params, function(err, posts, callback){
 		if (err) {
 			res.statusCode = 500;
-			res.end(JSON.stringify(err));
+			res.send(JSON.stringify(err));
 		} else {
 			res.statusCode = 200;
-			res.end(JSON.stringify(posts));
+			res.send(JSON.stringify(posts));
 		}
 	});
 };
@@ -54,12 +54,13 @@ exports.create = function(req, res){
 	};
 
 	Posts.create(article, function(err, posts){
+		console.log("Posts.create");
 		if (err) {
 			res.statusCode = 500;
-			res.end(JSON.stringify(err));
+			res.send(JSON.stringify(err));
 		} else {
 			res.statusCode = 200;
-			res.end(JSON.stringify(posts));
+			res.send(JSON.stringify(posts));
 		}
 	});
 	// });
@@ -80,12 +81,19 @@ exports.destroy = function(req, res){
 };
 
 exports.update = function(req, res){
-	var article = req.body;
+	var article = {
+		id: 		req.body.id,
+		title: 		req.body.title,
+		content: 	req.body.text,
+		author: 	req.user.local.name,
+		date: 		moment().format("MMM Do YY")
+	};
+	
 	Posts.update(article, function(err, result){
 			if (err) {
-				res.end(JSON.stringify(err));
+				res.send(JSON.stringify(err));
 			} else {
-				res.end(JSON.stringify(result));
+				res.send(JSON.stringify(result));
 			}
 		});
 };
@@ -99,10 +107,10 @@ exports.show = function(req, res){
 	Posts.show(id, function(err, posts){
 		if (err) {
 			res.statusCode = 500;
-			res.end(JSON.stringify(err));
+			res.send(JSON.stringify(err));
 		} else {
 			res.statusCode = 200;
-			res.end(JSON.stringify(posts));
+			res.send(JSON.stringify(posts));
 		}
 	});
 };

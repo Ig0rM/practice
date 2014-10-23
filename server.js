@@ -4,7 +4,7 @@ var routes = require('./backend/routes.js');
 var passportConf = require('./config/passport');
 var bodyParser = require('body-parser');
 
-var port     = process.env.PORT || 8080;
+// var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -22,6 +22,8 @@ passportConf.conf(passport);
 app.use(morgan('dev'));//
 app.use(cookieParser());//
 
+// app.use(function(req,res,next){
+// });
 
 app.use(bodyParser());
 

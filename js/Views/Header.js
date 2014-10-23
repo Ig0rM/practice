@@ -17,7 +17,7 @@ define([
 
 
       //login form slide Up
-      $(".glyphicon-chevron-up").on("click", function(){
+   /*   $(".glyphicon-chevron-up").on("click", function(){
           $(".glyphicon-chevron-up").fadeOut(0);
           $(".glyphicon-chevron-down").fadeIn(100, function(){
               $("#loginForm").slideUp(400);
@@ -30,7 +30,7 @@ define([
           $(".glyphicon-chevron-up").fadeIn(100, function(){
               $("#loginForm").slideDown(400);
           });
-      });
+      });*/
     },
 
     render: function(){

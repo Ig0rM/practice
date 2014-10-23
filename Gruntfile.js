@@ -31,40 +31,7 @@ module.exports = function(grunt) {
             }
           }
         }
-
-        /*shell: {
-          options: {                      // Put this option if you want to see output when run shell script
-              stdout: true,
-              stderr: true,
-              failOnError: true
-          },
-
-          mongo: {
-            command: 'mongod --dbpath c:/development/mongodb/data'
-          },
-
-          hello: {
-            command: function () {
-                return 'echo hello';
-            }
-          }
-        }*/ /*,
-
-        connect: {
-            server: {
-              options: {
-                port: 9000,
-                keepalive: true,
-                middleware: function(connect, options, middlewares) {
-                    routes.createRoutes(middlewares);
-                    return middlewares;
-                }
-              },
-            },
-        }*/
     });
 
     grunt.registerTask('default', ['express', 'watch', 'express-keepalive']);
-    // grunt tasks
-    grunt.registerTask('server', ['connect']);
 };

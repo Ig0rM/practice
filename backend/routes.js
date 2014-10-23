@@ -11,11 +11,11 @@ exports.createRoutes = function(app, passport){
       req.params = url.parse(req._parsedUrl.path, true).query;
       req.params = req.params || {};
       posts.index(req, res);
-      next();
+      // next();
     })
     .post(function (req, res, next){
       posts.create(req, res);
-      next();
+      // next();
     });
 
   app.route('/api/posts/:id')
@@ -23,15 +23,15 @@ exports.createRoutes = function(app, passport){
       req.params = url.parse(req._parsedUrl.path, true).query;
       req.params = req.params || {};
       posts.show(req, res);
-      next();
+      // next();
     })
     .put(function (req, res, next){
       posts.update(req, res);
-      next();
+      // next();
     })
     .delete(function (req, res, next){
       posts.destroy(req, res);
-      next();
+      // next();
     });
 
   app.route('/search')
@@ -39,7 +39,16 @@ exports.createRoutes = function(app, passport){
       req.params = url.parse(req._parsedUrl.path, true).query;
       req.params = req.params || {};
       posts.search(req, res);
-      next();
+      // next();
+    });
+
+  app.route('/user')
+    .get(function (req, res, next){
+      res.send({
+        user: req.user.local.name,
+        id: req.user.local.id
+      });
+      // next();
     });
 
 
@@ -70,7 +79,7 @@ exports.createRoutes = function(app, passport){
   // process the signup form
   // app.post('/signup', do all our passport stuff here);
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile1', // redirect to the secure profile section
+    successRedirect : '/', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
   }));

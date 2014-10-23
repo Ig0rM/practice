@@ -8,8 +8,9 @@ define([
 	    "appViews/Contacts",
 	    "appViews/Profile",
 	    "appCollections/Articles",
-	    "appCollections/Search"
-   	], function (jquery, Backbone, Article, Header, Content, Footer, Contacts, Profile, Articles, Search) {
+	    "appCollections/Search",
+	    "appCollections/Users"
+   	], function (jquery, Backbone, Article, Header, Content, Footer, Contacts, Profile, Articles, Search, Users) {
 
 	var init = function(){
 
@@ -25,8 +26,10 @@ define([
 		    },
 
 		    main: function () {
+		    	var users = new Users();
 		    	var profile = new Profile({
-		        el: $("#profilePage")
+		        el: $("#profilePage"),
+		        collection: users
 		      });
 
 		    	profile.removeAll();
@@ -61,9 +64,10 @@ define([
 		    },
 
 		    contacts: function(){
-
+					var users = new Users();
 		    	var profile = new Profile({
-		        el: $("#profilePage")
+		        el: $("#profilePage"),
+		        collection: users
 		      });
 
 		    	profile.removeAll();
@@ -97,9 +101,13 @@ define([
 
 		    	content.removeAll();
 
+		    	// var user = new User();
+		    	var users = new Users();
 		    	var profile = new Profile({
-		        el: $("#profilePage")
+		        el: $("#profilePage"),
+		        collection: users
 		      });
+		      profile.render();
 		    },
 
 		    search: function(word){

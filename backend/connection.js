@@ -60,13 +60,13 @@ var findDocuments = function(db, collection, params, cb, callback) {
   // Get the documents collection
   var collection = db.collection(collection);
   // Insert some documents
-// author: params.author
+
   collection.find({author: params.author}).limit(parseInt(params.limit)).skip(parseInt(params.page)).toArray(function(err, docs) {
     assert.equal(err, null);
 
     console.dir(docs);
     callback(docs);
-    
+    cb(null, docs);
   });      
 
 };
@@ -80,7 +80,7 @@ var insertDocuments = function(db, collection, article, cb, callback) {
     ], function(err, result) {
       assert.equal(err, null);
 
-
+      console.log('first');
       callback(result);
       cb(null, result);
     });
@@ -106,7 +106,6 @@ exports.index = function(collection, params, cb){
     console.log("Connected correctly to server");
 
     findDocuments(db, collection, params, cb, function(result) {
-      cb(null, result);
       db.close();
     });
   });
