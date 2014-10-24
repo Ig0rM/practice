@@ -8,18 +8,14 @@ define([
 
 
     initialize: function(){
-      // this.render();
     },
 
     render: function(){
-      // console.log(this.collection);
       var self = this;
       var user;
-      // var user = new this.model();
       self.$el.empty();
-      this.collection.fetch({
+      self.collection.fetch({
         success: function (data) {
-          // console.log(data.toJSON());
           user = data.toJSON().pop();
           self.$el.append( _.template( profileTemplate )(user) );    
         }
@@ -29,8 +25,7 @@ define([
     },
 
     removeAll: function() {
-     this.$el.empty(); 
-    // this.$el.empty();
+      this.$el.empty(); 
     }
   });
 
