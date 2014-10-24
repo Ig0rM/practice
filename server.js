@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var routes = require('./backend/routes.js');
-var passportConf = require('./config/passport');
+var passportConf = require('./backend/passport');
 var bodyParser = require('body-parser');
 
 // var port     = process.env.PORT || 8080;
@@ -28,6 +28,7 @@ app.use(cookieParser());//
 app.use(bodyParser());
 
 app.set('view engine', 'ejs'); //
+app.set('views',__dirname + '/templates');
 
 
 // required for passport

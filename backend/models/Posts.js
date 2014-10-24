@@ -1,6 +1,4 @@
 var connection = require('../connection.js');
-var moment = require('moment');
-
 
 exports.search = function(params, cb){
   connection.search('articles', params, cb)
@@ -20,10 +18,4 @@ exports.destroy = function(id, cb){
 
 exports.update = function(article, cb){
 	connection.update('articles', article, cb);
-};
-
-exports.show = function(id, cb){
-	bd.queryRow('SELECT * FROM articles where id=?', [id], function(err, row) {
-    cb(err, row);
-  });
 };

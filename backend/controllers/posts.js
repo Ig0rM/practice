@@ -5,10 +5,8 @@ var DEFAULT_LIMIT = 4;
 var DEFAULT_PAGE = 0;
 var DEFAULT_DATE = "";
 
-var article;
 
 exports.search = function(req, res){
-
 	var params = {
 		word: req.params.word,
 		author: req.user.local.name
@@ -34,7 +32,7 @@ exports.index = function(req, res){
 		author : req.user.local.name || null
 	};
 
-	Posts.list(params, function(err, posts, callback){
+	Posts.list(params, function(err, posts){
 		if (err) {
 			res.statusCode = 500;
 			res.send(JSON.stringify(err));
@@ -63,7 +61,6 @@ exports.create = function(req, res){
 			res.send(JSON.stringify(posts));
 		}
 	});
-	// });
 };
 
 exports.destroy = function(req, res){
@@ -91,26 +88,11 @@ exports.update = function(req, res){
 	
 	Posts.update(article, function(err, result){
 			if (err) {
+				res.statusCode = 500;
 				res.send(JSON.stringify(err));
 			} else {
+				res.statusCode = 200;
 				res.send(JSON.stringify(result));
 			}
 		});
-};
-
-exports.show = function(req, res){
-	var id = req.params.id || false;
-
-	if (!id){
-		return false;
-	}
-	Posts.show(id, function(err, posts){
-		if (err) {
-			res.statusCode = 500;
-			res.send(JSON.stringify(err));
-		} else {
-			res.statusCode = 200;
-			res.send(JSON.stringify(posts));
-		}
-	});
 };

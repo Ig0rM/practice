@@ -18,14 +18,14 @@ define([
     //search by text
     findBySearch: function(word){
       var self = this;
-      var nextButton = this.$el.find("#nextListOfPages");
-      var prevButton = this.$el.find("#previousListOfPages");
-      var accordion = this.$el.find("#accordion");
+      var nextButton = self.$el.find("#nextListOfPages");
+      var prevButton = self.$el.find("#previousListOfPages");
+      var accordion = self.$el.find("#accordion");
 
       nextButton.val(0);
       prevButton.val(0);
 
-      this.collection.fetch({
+      self.collection.fetch({
             data: {word: word},
 
             success: function (data) {
@@ -46,12 +46,12 @@ define([
 
     //when creates new article
     createArticle: function(Model){
+      var self = this;
       var model = new Model();
-      var title = this.$el.find('#inputTitle').val();
-      // var author = this.$el.find('#inputAuthor').val();
-      var text = this.$el.find('#inputText').val();
-			var successNote = this.$el.find('.notification-success');
-			var creationForm = this.$el.find('#addOrEditArticleBlock');
+      var title = self.$el.find('#inputTitle').val();
+      var text = self.$el.find('#inputText').val();
+			var successNote = self.$el.find('.notification-success');
+			var creationForm = self.$el.find('#addOrEditArticleBlock');
 
       model.set({
         title: title,
@@ -70,7 +70,7 @@ define([
     addEditButton: function(Model){
     	var model = new Model();
     	var self = this;
-    	var button = this.$el.find('.editButton');
+    	var button = self.$el.find('.editButton');
 
       //editing button click event
       button.on('click', function(){
@@ -139,7 +139,7 @@ define([
     addDelButton: function(Model){
     	var model = new Model()
     	var self = this;
-    	var button = this.$el.find('.delButton');
+    	var button = self.$el.find('.delButton');
 
       //deletion button click event
       button.on('click', function(){
@@ -175,24 +175,25 @@ define([
     },
 
     startArticles: function(lim, pg){
+      var self = this;
       var posts = {
         limit: lim || 4,
         page: pg || 0
       };
-      this.showArticles(posts);
+      self.showArticles(posts);
     },
 
     //show panels of articles
     showArticles: function(posts){
-      var nextButton = this.$el.find("#nextListOfPages");
-      var prevButton = this.$el.find("#previousListOfPages");
-      var accordion = this.$el.find("#accordion");
       var self = this;
+      var nextButton = self.$el.find("#nextListOfPages");
+      var prevButton = self.$el.find("#previousListOfPages");
+      var accordion = self.$el.find("#accordion");
 
       nextButton.val(posts.page);
       prevButton.val(posts.page);
 
-      this.collection.fetch({
+      self.collection.fetch({
 						data: posts,
 
 						success: function (data) {
@@ -227,23 +228,23 @@ define([
     },
 
     render: function(){
+      var self = this;
 
-      var dateNav = this.$el.find("#rightSide");
-      var creationForm = this.$el.find("#addOrEditArticleBlock");
-      var pagination = this.$el.find("#paginationBlock");
-      var mainArticle = this.$el.find("#mainArticleBlock");
+      var dateNav = self.$el.find("#rightSide");
+      var creationForm = self.$el.find("#addOrEditArticleBlock");
+      var pagination = self.$el.find("#paginationBlock");
+      var mainArticle = self.$el.find("#mainArticleBlock");
 
       dateNav.append( _.template( rightSideTemplate ) );
       creationForm.append( _.template( createFormTemplate ) );
       pagination.append( _.template( paginationTemplate ) );
       mainArticle.append( _.template( mainArticleTemplate ) );
 
-      var nextButton = this.$el.find('#nextListOfPages');
-      var prevButton = this.$el.find('#previousListOfPages');
-      var creationForm = this.$el.find('#addOrEditArticleBlock');
-      var showCreationFormButton = this.$el.find('#createButton');
+      var nextButton = self.$el.find('#nextListOfPages');
+      var prevButton = self.$el.find('#previousListOfPages');
+      var creationForm = self.$el.find('#addOrEditArticleBlock');
+      var showCreationFormButton = self.$el.find('#createButton');
 
-      var self = this;
       nextButton.val(0);
       prevButton.val(0);
 
@@ -292,11 +293,12 @@ define([
 
     //remove all elements of content
     removeAll: function() {
-      this.$el.find("#accordion").empty();
-      this.$el.find("#addOrEditArticleBlock").empty();
-      this.$el.find("#rightSide").empty();
-      this.$el.find("#paginationBlock").empty();
-      this.$el.find("#mainArticleBlock").empty();
+      var self = this;
+      self.$el.find("#accordion").empty();
+      self.$el.find("#addOrEditArticleBlock").empty();
+      self.$el.find("#rightSide").empty();
+      self.$el.find("#paginationBlock").empty();
+      self.$el.find("#mainArticleBlock").empty();
     }
 
   });
