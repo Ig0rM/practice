@@ -4,7 +4,6 @@ var routes = require('./backend/routes.js');
 var passportConf = require('./backend/passport');
 var bodyParser = require('body-parser');
 
-// var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -17,13 +16,11 @@ var configDB = require('./backend/connection.js');
 
 mongoose.connect(configDB.dbUrl);//
 passportConf.conf(passport);
-//require('./config/passport')(passport);//
+
 
 app.use(morgan('dev'));//
 app.use(cookieParser());//
 
-// app.use(function(req,res,next){
-// });
 
 app.use(bodyParser());
 
@@ -39,7 +36,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 routes.createRoutes(app, passport);
-// app.listen(3000);
+
 
 module.exports = app;
 
