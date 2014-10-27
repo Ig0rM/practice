@@ -37,10 +37,17 @@ exports.createRoutes = function(app, passport){
 
   app.route('/user')
     .get(function (req, res, next){
-      res.send({
-        user: req.user.local.name,
-        id: req.user.local.id
-      });
+      if (req.user.facebook.name){
+         res.send({
+          user: req.user.facebook.name,
+          id: req.user.facebook.id
+        });
+      }else{
+        res.send({
+          user: req.user.local.name,
+          id: req.user.local.id
+        });
+      }
     });
 
   // render the page and pass in any flash data if it exists
@@ -72,6 +79,21 @@ exports.createRoutes = function(app, passport){
       user : req.user // get the user out of session and pass to template
     });
   });
+
+
+  // =====================================
+  // FACEBOOK ROUTES =====================
+  // =====================================
+  // route for facebook authentication and login
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+  // handle the callback after facebook has authenticated the user
+  app.get('/auth/facebook/callback',
+      passport.authenticate('facebook', {
+          successRedirect : '/profile',
+          failureRedirect : '/'
+      }));
+
 
   //logout
   app.get('/logout', function(req, res) {

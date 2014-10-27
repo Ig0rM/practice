@@ -560,7 +560,6 @@ body{
 }
 
 #enterForm{
-	/*color: #3D445E;*/
 	font-weight: normal;
 	font-size: 12pt;
 	font-style: normal;
@@ -572,13 +571,27 @@ body{
 	color: black;
 	background-color: white;
 	border: 1px solid gray;
-	/*border: none;*/
-
+	
 	font-size: 12pt;
-	/*margin: 0px;*/
+	
 	padding: 5px;
 	border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+}
+
+#fbauthcont{
+	
+}
+
+#fbauth{
+	opacity: .8;
+
+	background-color: #D5DBFF;
+
+	border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
