@@ -28,7 +28,7 @@ var updateDocument = function(db, collection, article, cb, callback) {
                 author : article.author,
                 date : article.date
               } }, function(err, result) {
-
+    assert.equal(err, null);
     callback(result);
     console.log(result);
     cb(null, result);
