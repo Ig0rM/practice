@@ -9,7 +9,6 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 
 var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 
 var configDB = require('./backend/connection.js');
@@ -19,8 +18,6 @@ passportConf.conf(passport);
 
 
 app.use(morgan('dev'));//
-// app.use(cookieParser());//
-
 
 app.use(bodyParser());
 

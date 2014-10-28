@@ -37,7 +37,7 @@ var removeDocument = function(db, collection, id, cb, callback) {
   // Get the documents collection
   var collection = db.collection(collection);
   // Insert some documents
-  //try to string
+  // try to string
   collection.remove({ _id:  ObjectID(id) }, function(err, result) {
     assert.equal(err, null);
     callback(result);
@@ -57,7 +57,7 @@ var findDocuments = function(db, collection, params, cb, callback) {
 };
 
 var insertDocuments = function(db, collection, article, cb, callback) {
-    // Get the documents collection
+  // Get the documents collection
   var collection = db.collection(collection);
   // Insert some documents
   collection.insert([

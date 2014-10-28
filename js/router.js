@@ -101,7 +101,6 @@ define([
 
 		    	content.removeAll();
 
-		    	// var user = new User();
 		    	var users = new Users();
 		    	var profile = new Profile({
 		        el: $("#profilePage"),
