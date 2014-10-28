@@ -13,7 +13,6 @@ var searchDocument = function(db, collection, params, cb, callback) {
   //try to string
  collection.find({content: { $regex: params.word } , author: params.author}).toArray(function(err, docs) {
     assert.equal(err, null);
-    console.dir(docs);
     callback(docs);
     cb(null, docs);
   });     
@@ -30,7 +29,6 @@ var updateDocument = function(db, collection, article, cb, callback) {
               } }, function(err, result) {
     assert.equal(err, null);
     callback(result);
-    console.log(result);
     cb(null, result);
   });  
 };
@@ -40,11 +38,9 @@ var removeDocument = function(db, collection, id, cb, callback) {
   var collection = db.collection(collection);
   // Insert some documents
   //try to string
-  console.log(id);
   collection.remove({ _id:  ObjectID(id) }, function(err, result) {
     assert.equal(err, null);
     callback(result);
-    console.log(result);
     cb(null, result);
   });    
 };
@@ -55,7 +51,6 @@ var findDocuments = function(db, collection, params, cb, callback) {
   // Insert some documents
   collection.find({author: params.author}).limit(parseInt(params.limit)).skip(parseInt(params.page)).toArray(function(err, docs) {
     assert.equal(err, null);
-    console.dir(docs);
     callback(docs);
     cb(null, docs);
   });      
@@ -69,7 +64,6 @@ var insertDocuments = function(db, collection, article, cb, callback) {
     article
   ], function(err, result) {
     assert.equal(err, null);
-    console.log('first');
     callback(result);
     cb(null, result);
   });
@@ -99,7 +93,6 @@ exports.delete = function(collection, id, cb){
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
-
     removeDocument(db, collection, id, cb, function() {
       db.close();
     });
@@ -110,7 +103,6 @@ exports.update = function(collection, article, cb){
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
-
     updateDocument(db, collection, article, cb, function() {
       db.close();
     });

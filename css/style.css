@@ -586,6 +586,8 @@ body{
 }
 
 #fbauth{
+	padding: 10px;
+	
 	opacity: .8;
 
 	background-color: #D5DBFF;
@@ -594,4 +596,8 @@ body{
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+
+#fbauth h1{
+	font-size: 20pt;
 }

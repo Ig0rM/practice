@@ -1,11 +1,10 @@
 define([
     'Backbone',
-    'text!appTemplates/rightSide.html',
     'text!appTemplates/createForm.html',
     'text!appTemplates/pagination.html',
     'text!appTemplates/mainArticle.html',
     'text!appTemplates/accordionPanel.html'
-  ], function (Backbone, rightSideTemplate, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate) {
+  ], function (Backbone, createFormTemplate, paginationTemplate, mainArticleTemplate, accordionPanelTemplate) {
 
   var DEFAULT_LIMIT = 4;
 
@@ -230,12 +229,10 @@ define([
     render: function(){
       var self = this;
 
-      var dateNav = self.$el.find("#rightSide");
       var creationForm = self.$el.find("#addOrEditArticleBlock");
       var pagination = self.$el.find("#paginationBlock");
       var mainArticle = self.$el.find("#mainArticleBlock");
 
-      dateNav.append( _.template( rightSideTemplate ) );
       creationForm.append( _.template( createFormTemplate ) );
       pagination.append( _.template( paginationTemplate ) );
       mainArticle.append( _.template( mainArticleTemplate ) );
@@ -296,7 +293,6 @@ define([
       var self = this;
       self.$el.find("#accordion").empty();
       self.$el.find("#addOrEditArticleBlock").empty();
-      self.$el.find("#rightSide").empty();
       self.$el.find("#paginationBlock").empty();
       self.$el.find("#mainArticleBlock").empty();
     }

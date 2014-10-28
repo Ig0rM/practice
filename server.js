@@ -19,7 +19,7 @@ passportConf.conf(passport);
 
 
 app.use(morgan('dev'));//
-app.use(cookieParser());//
+// app.use(cookieParser());//
 
 
 app.use(bodyParser());

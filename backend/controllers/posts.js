@@ -17,9 +17,16 @@ getUsername = function(req){
   return name;
 };
 
-/*makeRes = function(err, result){
-	return resData
-};*/
+makeRes = function(res, err, result){
+	if (err) {
+			res.statusCode = 500;
+			res.send(JSON.stringify(err));
+		} else {
+			res.statusCode = 200;
+			res.send(JSON.stringify(result));
+		}
+	return true;
+};
 
 exports.search = function(req, res){
 	var params = {
@@ -28,13 +35,7 @@ exports.search = function(req, res){
 	};
 
 	Posts.search(params, function(err, posts){
-		if (err) {
-			res.statusCode = 500;
-			res.send(JSON.stringify(err));
-		} else {
-			res.statusCode = 200;
-			res.send(JSON.stringify(posts));
-		}
+		makeRes(res, err, posts);
 	});
 
 };
@@ -49,13 +50,7 @@ exports.index = function(req, res){
 	};
 
 	Posts.list(params, function(err, posts){
-		if (err) {
-			res.statusCode = 500;
-			res.send(JSON.stringify(err));
-		} else {
-			res.statusCode = 200;
-			res.send(JSON.stringify(posts));
-		}
+		makeRes(res, err, posts);
 	});
 };
 
@@ -68,14 +63,7 @@ exports.create = function(req, res){
 	};
 
 	Posts.create(article, function(err, posts){
-		console.log("Posts.create");
-		if (err) {
-			res.statusCode = 500;
-			res.send(JSON.stringify(err));
-		} else {
-			res.statusCode = 200;
-			res.send(JSON.stringify(posts));
-		}
+		makeRes(res, err, posts);
 	});
 };
 
@@ -83,13 +71,7 @@ exports.destroy = function(req, res){
 	var id = req.params.id;
 
 	Posts.destroy(id, function(err, posts){
-		if (err) {
-			res.statusCode = 500;
-			res.send(JSON.stringify(err));
-		} else {
-			res.statusCode = 200;
-			res.send(JSON.stringify(posts));
-		}
+		makeRes(res, err, posts);
 	});
 };
 
@@ -103,12 +85,6 @@ exports.update = function(req, res){
 	};
 	
 	Posts.update(article, function(err, result){
-			if (err) {
-				res.statusCode = 500;
-				res.send(JSON.stringify(err));
-			} else {
-				res.statusCode = 200;
-				res.send(JSON.stringify(result));
-			}
-		});
+			makeRes(res, err, result);
+	});
 };
